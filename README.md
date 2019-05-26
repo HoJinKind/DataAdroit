@@ -6,7 +6,7 @@ his project was bootstrapped with [Create React App](https://github.com/facebook
 ## Available Scripts
 
 before, run :
-## `npm install`
+### `npm install`
 
 In the project directory, you can run:
 
