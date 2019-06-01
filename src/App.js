@@ -9,7 +9,7 @@ import UploadCSV from "./UploadCSV";
 
 class App extends Component {
   state = {
-    data: [6, 6, 6, 6, 6, 6],
+    data: [6, 3, 1, 6, 6, 6],
     width: 700,
     height: 500
   };

@@ -62,7 +62,7 @@ function UserLogin(props) {
             Login
           </Typography>
 
-          <form action='/charts' className={classes.form} method='GET'>
+          <form action='/uploadcsv' className={classes.form} method='GET'>
             <FormControl margin='normal' required fullWidth>
               <InputLabel htmlFor='email'>Email Address</InputLabel>
               <Input id='email' name='email' autoComplete='email' autoFocus />
