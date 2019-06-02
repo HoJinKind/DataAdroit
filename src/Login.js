@@ -59,7 +59,7 @@ function UserLogin(props) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component='h1' variant='h5'>
-            Login
+            Data Adroit
           </Typography>
 
           <form action='/uploadcsv' className={classes.form} method='GET'>

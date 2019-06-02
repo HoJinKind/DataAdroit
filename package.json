@@ -8,10 +8,12 @@
     "@material-ui/icons": "^4.0.0",
     "d3": "^5.9.2",
     "nodemon": "^1.19.1",
+    "papaparse": "^5.0.0",
     "react": "^16.8.6",
     "react-d3-graph": "^2.0.2",
     "react-dom": "^16.8.6",
     "react-file-reader": "^1.1.4",
+    "react-papaparse": "^1.0.5",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1"
   },
