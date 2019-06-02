@@ -32,16 +32,6 @@ class UploadCSV extends React.Component {
     this.fileInput.current.click();
   };
 
-  handleFiles = files => {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      // Use reader.result
-      alert(reader.result);
-    };
-    const { router } = this.context;
-    this.props.history.push({ pathname: "/charts", state: { detail: "123" } });
-    const a = reader.readAsText(files[0]);
-  };
   render() {
     return (
       <div>

@@ -10,8 +10,8 @@ import UploadCSV from "./UploadCSV";
 class App extends Component {
   state = {
     data: [6, 3, 1, 6, 6, 6],
-    width: 700,
-    height: 500
+    width: 1000,
+    height: 10000
   };
   //render={(props) => <BarChart {...props} data=this.state.data />}
   render() {
@@ -22,7 +22,12 @@ class App extends Component {
             {/* home page */}
             <Route
               path='/charts'
-              render={props => <BarChart {...props} data={this.state.data} />}
+              render={props => (
+                <BarChart
+                  {...props}
+                  data={(this.state.data, this.state.width)}
+                />
+              )}
             />
             <Route path='/uploadcsv' component={UploadCSV} />
             <Route path='/' component={Login} exact />

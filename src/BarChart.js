@@ -21,7 +21,7 @@ class BarChart extends Component {
     const svg = d3
       .select("body")
       .append("svg")
-      .attr("width", this.props.width)
+      .attr("width", 1000)
       .attr("height", this.props.height);
 
     svg
