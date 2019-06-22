@@ -6,6 +6,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import BarChart from "./BarChart";
 import Login from "./Login";
 import UploadCSV from "./UploadCSV";
+import Exploratory from "./Exploratory";
+import Source from "./Source";
 
 class App extends Component {
   state = {
@@ -31,6 +33,8 @@ class App extends Component {
             />
             <Route path='/uploadcsv' component={UploadCSV} />
             <Route path='/' component={Login} exact />
+            <Route path='/exploratory' component={Exploratory}/>
+            <Route path='/source' component={Source}/>
           </Switch>
         </div>
       </BrowserRouter>

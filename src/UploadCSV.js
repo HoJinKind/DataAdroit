@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import * as d3 from "d3";
-import ReactFileReader from "react-file-reader";
 import { BrowserRouter, Redirect, withRouter } from "react-router-dom";
 import { CSVReader } from "react-papaparse";
 
@@ -12,16 +11,17 @@ class UploadCSV extends React.Component {
 
   handleReadCSV = data => {
     // const b = data.map(Number);
-    console.log(data.data[0][0]);
+    console.log(data);
+    console.log(this.fileInput.current.files[0].name)
     var res = data.data[1].map(function(v) {
       return parseInt(v, 10);
     });
 
     console.log(res);
-    this.props.history.push({
-      pathname: "/charts",
-      state: { detail: res, title: data.data[0][0] }
-    });
+    // this.props.history.push({
+    //   pathname: "/charts",
+    //   state: { detail: res, title: data.data[0][0],data:data }
+    // });
   };
 
   handleOnError = (err, file, inputElem, reason) => {
@@ -29,7 +29,9 @@ class UploadCSV extends React.Component {
   };
 
   handleImportOffer = () => {
-    this.fileInput.current.click();
+    const file = this.fileInput;
+    file.current.click();
+    
   };
 
   render() {
@@ -44,6 +46,7 @@ class UploadCSV extends React.Component {
         <button onClick={this.handleImportOffer}>Import</button>
       </div>
     );
+    
   }
 }
 
