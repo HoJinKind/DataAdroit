@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import {CSVReader} from "react-papaparse";
+import {DragSource} from "react-dnd";
+import { DragDropContext } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
 
 class Source extends Component {
 
@@ -57,13 +60,28 @@ class Source extends Component {
                 </div>
             )
         } else {
-            const a = this.state.features.map((data)=>{return <li>{data}</li>});
-            return (
-                a
+            const {name, connectDragSource} = this.props;
+            return connectDragSource(
+                <div class="Source">{this.state.filename}</div>
             )
         }
         
     }
 }
+
+function collect(connect, monitor) {
+    return {
+        connectDragSource: connect.DragSource()
+    };
+}
+
+const source = {
+    beginDrag(props, monitor, component) {
+        const item = {id: props.id};
+        return item;
+    }
+}
+
+//const ContainerWrapper = DragDropContext(HTML5Backend)(Container);
 
 export default Source;
