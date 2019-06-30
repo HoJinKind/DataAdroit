@@ -1,0 +1,83 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\PERSONAL\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @nivo/circle-packing
+
+PATH: 
+  C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0\libnvvp;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Python36;C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC;C:\Program Files (x86)\Common Files\Intel\Shared Files\cpp\bin\Intel64;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\MATLAB\R2016b\bin;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Users\PERSONAL\AppData\Local\Programs\Python\Python36-32\Scripts;C:\Users\PERSO;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk-10.0.2\bin;C:\Go\bin;C:\Users\PERSONAL\AppData\Roaming\Python\Python36\Scripts;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0\bin;C:\bazel;C:\msys64\usr\bin;C:\bazel;C:\Program Files (x86)\CodeBlocks\MinGW\bin;C:\Users\PERSONAL\Downloads\Term 5\Elements of Software Construction\Week 13\apache-maven-3.6.1\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\nodejs\;C:\Program Files\NVIDIA Corporation\NVSMI;C:\Program Files\Python36;C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC;C:\texlive\2017\bin\win32;C:\Users\PERSONAL\AppData\Local\Programs\Python\Python36-32;C:\Users\PERSONAL\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\Heroku\bin;C:\Program Files (x86)\Windows Kits\8.1\bin\x64;C:\Python27;C:\Program Files\Python36\Scripts;C:\Program Files (x86)\GnuWin32\bin;C:\Program Files\Java\jdk-10.0.2\bin;C:\Users\PERSONAL\go\bin;C:\Users\PERSONAL\AppData\Roaming\Python\Python36\Scripts;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0\bin;C:\bazel;C:\msys64\usr\bin;C:\bazel;C:\Program Files (x86)\CodeBlocks\MinGW\bin;C:\Users\PERSONAL\AppData\Local\Pandoc\;C:\Program Files\Docker Toolbox;C:\Users\PERSONAL\AppData\Roaming\npm;C:\Program Files\NVIDIA Corporation\NVSMI;
+
+Yarn version: 
+  1.16.0
+
+Node version: 
+  10.15.3
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.2.1.tgz: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (C:\Users\PERSONAL\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:130217:19)
+      at Object.onceWrapper (events.js:277:13)
+      at ClientRequest.emit (events.js:189:13)
+      at TLSSocket.emitRequestTimeout (_http_client.js:662:40)
+      at Object.onceWrapper (events.js:277:13)
+      at TLSSocket.emit (events.js:189:13)
+      at TLSSocket.Socket._onTimeout (net.js:440:8)
+      at ontimeout (timers.js:436:11)
+      at tryOnTimeout (timers.js:300:5)
+      at listOnTimeout (timers.js:263:5)
+
+npm manifest: 
+  {
+    "name": "my-app",
+    "version": "0.1.0",
+    "private": true,
+    "main": "./src/App.js",
+    "dependencies": {
+      "@material-ui/core": "^4.0.0",
+      "@material-ui/icons": "^4.0.0",
+      "d3": "^5.9.2",
+      "d3blackbox": "^1.2.0",
+      "nodemon": "^1.19.1",
+      "papaparse": "^5.0.0",
+      "react": "^16.8.6",
+      "react-d3-graph": "^2.0.2",
+      "react-d3-library": "^1.1.8",
+      "react-data-grid": "^6.1.0",
+      "react-dnd": "^8.0.3",
+      "react-dnd-html5-backend": "^8.0.3",
+      "react-dom": "^16.8.6",
+      "react-file-reader": "^1.1.4",
+      "react-papaparse": "^1.0.5",
+      "react-router-dom": "^5.0.0",
+      "react-scripts": "3.0.1",
+      "react-tabs": "^3.0.0"
+    },
+    "scripts": {
+      "server": "nodemon server",
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+      "extends": "react-app"
+    },
+    "browserslist": {
+      "production": [
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
+      ],
+      "development": [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "last 1 safari version"
+      ]
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

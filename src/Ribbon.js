@@ -43,7 +43,9 @@ class Ribbon extends Component {
 
     handleAddBoard = () => {
         let state = this.state;
-        state.boards.push({});
+        var n = this.state.boards.length+1;
+        state.boards.push({name:'Board '+n});
+        console.log(state.boards)
         this.props.onAddBoard(state);
     }
 
@@ -62,8 +64,9 @@ class Ribbon extends Component {
 
         var sources = this.state.sources.map((source,i)=>{console.log(source);return <Source key={i} state={source}/>})
         return (
-            <div style={{'width':'calc(100vw - 40px)','height':'7vh','padding':'20px','border-color':'red'}}>
-                {this.state.name}
+            
+            <div style={{'width':'calc(100vw - 40px)','height':'7vh','padding':'20px','borderColor':'red'}}>
+                <b>{this.state.name}</b>
                 <CSVReader
                     onFileLoaded={this.handleReadCSV}
                     inputRef={this.fileInput}
@@ -74,7 +77,7 @@ class Ribbon extends Component {
                 <button style={{'float':'right'}} onClick={this.handleAddBoard}>+ Board</button>
                 <button style={{'float':'right'}} onClick={this.handleExport}>Export</button>
                 
-                <div style={{'overflow-y':'scroll','height':'70px','width':'300px'}}>
+                <div style={{'overflowY':'scroll','height':'70px','width':'300px','display':'block','position':'relative','float':'right'}}>
                     {sources}
                 </div>
 

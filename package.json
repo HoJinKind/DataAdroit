@@ -6,11 +6,15 @@
   "dependencies": {
     "@material-ui/core": "^4.0.0",
     "@material-ui/icons": "^4.0.0",
+    "@nivo/bar": "^0.59.1",
+    "@nivo/line": "^0.59.1",
+    "bootstrap": "^4.3.1",
     "d3": "^5.9.2",
     "d3blackbox": "^1.2.0",
     "nodemon": "^1.19.1",
     "papaparse": "^5.0.0",
     "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.9",
     "react-d3-graph": "^2.0.2",
     "react-d3-library": "^1.1.8",
     "react-data-grid": "^6.1.0",
@@ -18,10 +22,13 @@
     "react-dnd-html5-backend": "^8.0.3",
     "react-dom": "^16.8.6",
     "react-file-reader": "^1.1.4",
+    "react-grid-layout": "^0.16.6",
+    "react-markdown": "^4.1.0",
     "react-papaparse": "^1.0.5",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
-    "react-tabs": "^3.0.0"
+    "react-tabtab": "^2.0.0",
+    "styled-components": "4.0.0"
   },
   "scripts": {
     "server": "nodemon server",
