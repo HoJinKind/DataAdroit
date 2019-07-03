@@ -8,8 +8,11 @@ link : http://206.189.155.59:3000
 ## Available Scripts
 
 before, run :
-### `npm install`
+### `yarn install`
 
 In the project directory, you can run:
 
-### `npm start`
+### `yarn start`
+
+
+### `yarn run server`
