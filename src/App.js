@@ -9,6 +9,7 @@ import UploadCSV from "./UploadCSV";
 import Exploratory from "./Exploratory";
 import Source from "./Source";
 import Container from "./Container";
+import nightmare from "./scrape";
 
 class App extends Component {
   state = {
@@ -34,8 +35,9 @@ class App extends Component {
             />
             <Route path='/uploadcsv' component={UploadCSV} />
             <Route path='/' component={Login} exact />
-            <Route path='/exploratory' component={Exploratory}/>
-            <Route path='/source' component={Container}/>
+            <Route path='/exploratory' component={Exploratory} />
+            <Route path='/source' component={Container} />
+            <Route path='/scrape' component={nightmare} />
           </Switch>
         </div>
       </BrowserRouter>

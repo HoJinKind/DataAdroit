@@ -11,6 +11,7 @@
     "bootstrap": "^4.3.1",
     "d3": "^5.9.2",
     "d3blackbox": "^1.2.0",
+    "express": "^4.17.1",
     "nodemon": "^1.19.1",
     "papaparse": "^5.0.0",
     "react": "^16.8.6",
