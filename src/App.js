@@ -9,7 +9,6 @@ import UploadCSV from "./UploadCSV";
 import Exploratory from "./Exploratory";
 import Source from "./Source";
 import Container from "./Container";
-import TabEx from "./TabEx";
 
 class App extends Component {
   state = {
@@ -37,7 +36,6 @@ class App extends Component {
             <Route path='/' component={Login} exact />
             <Route path='/exploratory' component={Exploratory}/>
             <Route path='/source' component={Container}/>
-            <Route path='/tab' component={TabEx}/>
           </Switch>
         </div>
       </BrowserRouter>

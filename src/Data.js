@@ -11,6 +11,8 @@ class Data extends Component {
     render() {
         var features =this.state.features.map((feature,i)=><Dropdown.Item key={i}>{feature}</Dropdown.Item>)
         return (
+            <div>
+                close
             <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                     {this.state.filename}
@@ -19,6 +21,7 @@ class Data extends Component {
                     {features}
                 </Dropdown.Menu>
             </Dropdown>
+            </div>
         )
         
     }
