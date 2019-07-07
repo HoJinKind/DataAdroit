@@ -30,7 +30,6 @@ function collect(connect, monitor) {
 
 const source = {
     beginDrag(props, monitor, component) {
-        console.log(props)
         const item = props.state;
         return item;
     }

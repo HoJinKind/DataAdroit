@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Ribbon from "./Ribbon";
-import Chart from "./Chart";
+import ChartHandler from "./ChartHandler";
 import Source from "./Source";
 import Space from "./Space";
 
@@ -8,7 +8,7 @@ class Board extends Component {
     constructor(props) {
         super(props);
         this.state = props.state;
-        if (!this.state.spaces) {
+        if (this.state.spaces == null) {
             this.state.spaces = [{}];
         }
     }

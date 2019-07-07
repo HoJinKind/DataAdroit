@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
+import Feature from "./Feature";
 import 'bootstrap/dist/css/bootstrap.css';
 
 class Data extends Component {
@@ -9,10 +10,19 @@ class Data extends Component {
     }
 
     render() {
-        var features =this.state.features.map((feature,i)=><Dropdown.Item key={i}>{feature}</Dropdown.Item>)
+        console.log(this.state)
+        var features =this.state.features.map((feature,i)=>{
+            var fd = this.state.data.map((d)=>d[feature])
+            var state = {
+                "name":feature,
+                "data":fd
+            }
+            return (
+                <Dropdown.Item key={i}><Feature state={state}/></Dropdown.Item>
+            )
+        })
         return (
             <div>
-                close
             <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                     {this.state.filename}

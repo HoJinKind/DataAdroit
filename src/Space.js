@@ -1,13 +1,14 @@
 import React, {Component} from "react";
-import Chart from "./Chart"
+import ChartHandler from "./ChartHandler";
+import MDHandler from "./MDHandler";
 import {DropTarget} from 'react-dnd';
-import Data from "./Data"
+import Data from "./Data";
 
 class Space extends Component {
     constructor(props) {
         super(props);
         this.state = props.state;
-        if (!this.state.values) {
+        if (this.state.values == null) {
             this.state['values'] = []
             this.state['sources'] = []
         }
@@ -18,6 +19,11 @@ class Space extends Component {
         state.values.push({id:'chart'})
         this.setState(state);
     }
+    handleAddMD = () => {
+        let state = this.state;
+        state.values.push({id:'md'});
+        this.setState(state);
+    }
 
     render() {
         // consist of chart and note
@@ -26,8 +32,12 @@ class Space extends Component {
         var values = this.state.values;
         var contents = values.map((value,i)=> {
             if (value.id=='chart') {
-                return <Chart key={i} state={value}/>
+                return <ChartHandler key={i} state={value}/>
             }
+            if (value.id == 'md') {
+                return <MDHandler key={i} state = {value}/>
+            }
+
         })
 
         var datas = this.state.sources.map((data,i)=><Data state={data} key={i}/>)
@@ -37,6 +47,7 @@ class Space extends Component {
                 Space:
                 {datas}
                 <button style={{'float':'right'}} onClick={this.handleAddChart}>+ Chart</button>
+                <button style={{'float':'right'}} onClick={this.handleAddMD}>+ MD</button>
                 {contents}
             </div>
         )

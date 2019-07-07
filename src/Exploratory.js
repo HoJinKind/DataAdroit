@@ -22,6 +22,7 @@ class Exploratory extends Component {
     }
 
     handleAddBoard = state => {
+        
         this.setState(state);
     };
 
@@ -35,6 +36,7 @@ class Exploratory extends Component {
         const { boards } = this.state;
         const updateTabs = simpleSwitch(boards, oldIndex, newIndex);
         console.log(updateTabs);
+        console.log('exit E')
         this.setState({ boards: updateTabs, activeIndex: newIndex });
     }
 
