@@ -59,7 +59,7 @@ function getsomedata(callback) {
     });
 }
 
-async function run() {
+async function run(retVal) {
   try {
     //testing how to read html
     //result is the return value
@@ -70,7 +70,7 @@ async function run() {
 
     nightmare
       .goto("https://duckduckgo.com")
-      .type("#search_form_input_homepage", "donald trump")
+      .type("#search_form_input_homepage", retVal)
       .click("#search_button_homepage")
       .wait("#r1-3 a.result__a")
       .evaluate(() => {
@@ -112,5 +112,5 @@ async function run() {
   }
 }
 router.get("/", (req, res) => res.send("about route"));
-run();
+run(`grab`);
 module.exports = router;
