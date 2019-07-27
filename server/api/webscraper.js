@@ -10,20 +10,17 @@ const JSSoup = require("jssoup").default;
 // Package Definitions
 const writer = csvWriter();
 const nightmare = Nightmare();
-const nightmareForArticleScrape1 = Nightmare();
 
 //ablr to find top x number of links in search engine. plan is to scrap it
 // TODO pass in the string to scrape.
 var array1 = ["#r1-1 a.result__a", "#r1-2 a.result__a", "#r1-5 a.result__a"];
 
-async function scrapingArticle(nightmareObject) {
+async function scrapingArticle(articleURL, nightmareObject) {
   return new Promise(function(resolve, reject) {
     try {
       var ls;
       nightmareObject
-        .goto(
-          "https://twitter.com/realDonaldTrump?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
-        )
+        .goto(articleURL)
         .wait(1000)
         .evaluate(function() {
           //here is where I want to return the html body
@@ -37,10 +34,9 @@ async function scrapingArticle(nightmareObject) {
           //filter by p will be using jssoup too
           var soup = new JSSoup(body);
           ls = soup.findAll("p");
-          console.log(ls[10].text);
+          console.log(ls[34].text);
           console.log(ls.length);
-          resolve(ls[10].text);
-          // a.string: '1'
+          resolve(ls[25].text);
         });
     } catch (error) {
       reject("u suck");
@@ -49,8 +45,8 @@ async function scrapingArticle(nightmareObject) {
   });
 }
 
-function getsomedata(callback) {
-  scrapingArticle(new Nightmare())
+function getsomedata(articleURL, callback) {
+  scrapingArticle(articleURL, new Nightmare())
     .then(function(random_data) {
       callback(random_data);
     })
@@ -63,10 +59,13 @@ async function run(retVal) {
   try {
     //testing how to read html
     //result is the return value
-    getsomedata(function(result) {
-      console.log(result);
-      console.log("finally return my goodness");
-    });
+    getsomedata(
+      `https://www.apnews.com/9924c846abf84cfeabb76e6045190b42`,
+      function(result) {
+        console.log(result);
+        console.log("finally return my goodness");
+      }
+    );
 
     nightmare
       .goto("https://duckduckgo.com")
@@ -112,5 +111,5 @@ async function run(retVal) {
   }
 }
 router.get("/", (req, res) => res.send("about route"));
-run(`grab`);
+run(`Donald Trump`);
 module.exports = router;
