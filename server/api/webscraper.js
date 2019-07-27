@@ -16,11 +16,11 @@ const nightmareForArticleScrape1 = Nightmare();
 // TODO pass in the string to scrape.
 var array1 = ["#r1-1 a.result__a", "#r1-2 a.result__a", "#r1-5 a.result__a"];
 
-async function test() {
+async function scrapingArticle(nightmareObject) {
   return new Promise(function(resolve, reject) {
     try {
       var ls;
-      nightmareForArticleScrape1
+      nightmareObject
         .goto(
           "https://twitter.com/realDonaldTrump?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
         )
@@ -50,7 +50,7 @@ async function test() {
 }
 
 function getsomedata(callback) {
-  test()
+  scrapingArticle(new Nightmare())
     .then(function(random_data) {
       callback(random_data);
     })
