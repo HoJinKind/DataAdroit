@@ -2,14 +2,10 @@
 const express = require("express");
 const router = express.Router();
 const Nightmare = require("nightmare");
-const fs = require("fs");
-const csvWriter = require("csv-write-stream");
-var cheerio = require("cheerio");
 const JSSoup = require("jssoup").default;
 const Sentiment = require("sentiment");
 
 // Package Definitions
-const writer = csvWriter();
 const nightmareWebsiteFinder = Nightmare();
 
 //ablr to find top x number of links in search engine. plan is to scrap it
