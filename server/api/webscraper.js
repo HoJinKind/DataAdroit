@@ -6,16 +6,17 @@ const fs = require("fs");
 const csvWriter = require("csv-write-stream");
 var cheerio = require("cheerio");
 const JSSoup = require("jssoup").default;
+const Sentiment = require("sentiment");
 
 // Package Definitions
 const writer = csvWriter();
-const nightmare = Nightmare();
+const nightmareWebsiteFinder = Nightmare();
 
 //ablr to find top x number of links in search engine. plan is to scrap it
 // TODO pass in the string to scrape.
 var array1 = ["#r1-1 a.result__a", "#r1-2 a.result__a", "#r1-5 a.result__a"];
-
-async function scrapingArticle(articleURL, nightmareObject) {
+//function to scrape a url, able to work to get all p, w/o scrolling
+function scrapingArticle(articleURL, nightmareObject) {
   return new Promise(function(resolve, reject) {
     try {
       var ls;
@@ -34,9 +35,13 @@ async function scrapingArticle(articleURL, nightmareObject) {
           //filter by p will be using jssoup too
           var soup = new JSSoup(body);
           ls = soup.findAll("p");
-          console.log(ls[34].text);
-          console.log(ls.length);
-          resolve(ls[25].text);
+          console.log(ls.length + "this is length of an article");
+
+          var returnList = [];
+          for (var i = 0; i < ls.length; i++) {
+            returnList.push(ls[i].text);
+          }
+          resolve(returnList);
         });
     } catch (error) {
       reject("u suck");
@@ -45,8 +50,8 @@ async function scrapingArticle(articleURL, nightmareObject) {
   });
 }
 
-function getsomedata(articleURL, callback) {
-  scrapingArticle(articleURL, new Nightmare())
+async function scrapeArticleCallback(articleURL, callback) {
+  await scrapingArticle(articleURL, new Nightmare())
     .then(function(random_data) {
       callback(random_data);
     })
@@ -55,61 +60,77 @@ function getsomedata(articleURL, callback) {
     });
 }
 
-async function run(retVal) {
-  try {
-    //testing how to read html
-    //result is the return value
-    getsomedata(
-      `https://www.apnews.com/9924c846abf84cfeabb76e6045190b42`,
-      function(result) {
-        console.log(result);
-        console.log("finally return my goodness");
-      }
-    );
-
-    nightmare
-      .goto("https://duckduckgo.com")
-      .type("#search_form_input_homepage", retVal)
-      .click("#search_button_homepage")
-      .wait("#r1-3 a.result__a")
-      .evaluate(() => {
-        $(document)
-          .find("zcm__link  js-zci-link  js-zci-link--news")
-          .click();
-      })
-      .wait("#r1-3 a.result__a")
-      .evaluate(function() {
-        return document.querySelector("#r1-2 a.result__a").href;
-      })
-      .then(function(title) {
-        console.log(title);
-        nightmare
-          .evaluate(function() {
-            return document.querySelector("#r1-3 a.result__a").href;
-          })
-          .then(function(title) {
-            console.log(title);
-            nightmare
-              .evaluate(function() {
-                return document.querySelector("#r1-4 a.result__a").href;
-              })
-              .then(function(title) {
-                console.log(title);
-              });
+async function stepOneScrapingWorkPromise(retVal) {
+  return new Promise(function(resolve, reject) {
+    try {
+      //testing how to read html
+      //result is the return value
+      //by setting function to be not async, we hv to wait for it to finish
+      var fullList = [];
+      nightmareWebsiteFinder
+        .goto("https://duckduckgo.com")
+        .type("#search_form_input_homepage", retVal)
+        .click("#search_button_homepage")
+        .wait("#r1-3 a.result__a")
+        .evaluate(function() {
+          return document.querySelector("#r1-2 a.result__a").href;
+        })
+        .then(async function(title) {
+          await scrapeArticleCallback(title, function(result) {
+            fullList = fullList.concat(result);
           });
-      });
+          nightmareWebsiteFinder
+            .evaluate(function() {
+              return document.querySelector("#r1-3 a.result__a").href;
+            })
+            .then(async function(title) {
+              await scrapeArticleCallback(title, function(result) {
+                fullList = fullList.concat(result);
+                console.log(fullList.length);
+              });
 
-    // .. do more stuff
-    // const second = await nightmare
-    //   .evaluate(() => document.querySelector("#r1-2 a.result__a").href)
-    //   .end()
-    //   .then(function(title) {
-    //     console.log(title);
-    //   });
-  } catch (error) {
-    throw error;
-  }
+              nightmareWebsiteFinder
+                .evaluate(function() {
+                  return document.querySelector("#r1-4 a.result__a").href;
+                })
+                .then(function(title) {
+                  scrapeArticleCallback(title, function(result) {
+                    //appends to array
+                    fullList = fullList.concat(result);
+                    console.log(fullList.length);
+
+                    resolve(fullList);
+                  });
+                });
+            });
+        });
+    } catch (error) {
+      reject();
+      throw error;
+    }
+  });
 }
-router.get("/", (req, res) => res.send("about route"));
-run(`Donald Trump`);
+
+async function run(retVal, res) {
+  let result = await stepOneScrapingWorkPromise(retVal);
+  console.log("it has returned");
+
+  var sentiment = new Sentiment();
+  var sentimentResult = sentiment.analyze(result.join());
+  console.dir(sentimentResult);
+  res.send(sentimentResult);
+}
+
+router.post("/", (req, res) => {
+  console.log(req.body.name);
+  run(req.body.name, res);
+});
 module.exports = router;
+
+// .. do more stuff
+// const second = await nightmare
+//   .evaluate(() => document.querySelector("#r1-2 a.result__a").href)
+//   .end()
+//   .then(function(title) {
+//     console.log(title);
+//   });
