@@ -16,4 +16,4 @@ In the project directory, you can run to start react:
 
 To start server:
 ### `cd server`
-### `yarn start
+### `yarn start`
