@@ -47,6 +47,7 @@ console.log(this.state)
         var show =  md.render(this.state.content);
 
         return (
+            <div style={{'margin':10}}>
             <Tabs 
                     activeIndex={this.state.activeIndex}
                     onTabChange={this.handleTabChange}
@@ -86,6 +87,7 @@ editorProps={{
                       </TabPanel>
 
                 </Tabs>
+                </div>
             
         )
     }

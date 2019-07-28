@@ -7,6 +7,7 @@ import Data from './Data';
 import {DropTarget} from 'react-dnd';
 import 'semantic-ui-css/semantic.min.css';
 import LineChart from "./LineChart";
+import BarChart from "./BarChart";
 
 class ChartHandler extends Component {
     constructor(props) {
@@ -92,7 +93,23 @@ class ChartHandler extends Component {
       <Field id={field} key={field} onUpdate={this.fieldUpdate}></Field>)
     });
         break;
+      
+      case "Bar":
+        if (this.state.source!=null) {
+          chart = <BarChart 
+        pivot={this.state.fields.pivot.variables} 
+        variables={this.state.fields.variables.variables}
+        data={this.state.source.data} key={this.state.chartKey}/>
+        }
+        fields = ["pivot","variables"].map((field)=>{return(
+          <Field id={field} key={field} onUpdate={this.fieldUpdate}></Field>)
+        });
+
+        break;
+
+      
     }
+      
     
     var data=null
     if (this.state.source != null) {

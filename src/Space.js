@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import ChartHandler from "./ChartHandler";
 import MDHandler from "./MDHandler";
-import {DropTarget} from 'react-dnd';
 import Data from "./Data";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 class Space extends Component {
     constructor(props) {
@@ -43,11 +43,17 @@ class Space extends Component {
         var datas = this.state.sources.map((data,i)=><Data name={data.filename} features={data.features} data={data.data} key={i}/>)
         
         return (
-            <div style={{'borderStyle':'dotted','borderColor':'blue','margin':'20px','padding':'20px'}}>
-                Space:
+            <div style={{'borderStyle':'dotted','borderColor':'blue','margin':'20px','padding':'20px','minHeight':'75px'}}>
                 {datas}
-                <button style={{'float':'right'}} onClick={this.handleAddChart}>+ Chart</button>
-                <button style={{'float':'right'}} onClick={this.handleAddMD}>+ MD</button>
+                <Dropdown drop="left" style={{'display':'block','width':'auto','float':'right'}}>
+                    <Dropdown.Toggle variant="outline-primary" id="dropdown-basic" size="sm">
+                    <b><big>+</big></b>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item key={1} onClick={this.handleAddChart}>Chart</Dropdown.Item>
+                        <Dropdown.Item key={2} onClick={this.handleAddMD}>MD</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
                 {contents}
             </div>
         )

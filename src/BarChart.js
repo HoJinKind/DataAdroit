@@ -1,73 +1,167 @@
-import React, { Component } from "react";
-import * as d3 from "d3";
-
-import { BrowserRouter, Redirect, withRouter } from "react-router-dom";
-
-import rd3 from "react-d3-library";
-
-import Source from "./Source";
-
+import React, {Component} from "react";
+import { ResponsiveBar } from '@nivo/bar';
 
 class BarChart extends Component {
-  state = {
-    name: "",
-    data:""
-  };
-  componentDidMount() {
-    this.setState({d3:''})
-    this.drawChart();
-  }
-
-  drawChart() {
-    var data_raw = this.props.location.state.data.data;
-    const detail = this.props.location.state.detail;
-    console.log(detail)
-    this.setState({
-      name: this.props.location.state.title,
-      data: this.props.location.state.data.data
-    }); //using setstate
-
-    console.log(data);
-    var doesColumnExist = false;
-    
-    var data = []
-    for (var i=1; i<data_raw.length;i++) {
-      var line = {};
-      for (var j=0;j<data_raw[0].length;j++) {
-        line[data_raw[0][j]] = data_raw[i][j];
-      }
-      data.push(line)
+    constructor(props) {
+        super(props);
+        this.state = {
+            'pivot':props.pivot,
+            'variables':props.variables,
+            'data':JSON.parse(JSON.stringify(props.data))
+        }
     }
-    console.log(data);
-    // const svg = d3
-    //   .select("body")
-    //   .append("svg")
-    //   .attr("width", 1000)
-    //   .attr("height", this.props.height);
-    // console.log(detail)
-    // svg
-    //   .selectAll("rect")
-    //   .data(detail)
-    //   .enter()
-    //   .append("rect")
-    //   .attr("x", (d, i) => i * 70)
-    //   .attr("y", (d, i) => 100 - 10 * d)
-    //   .attr("width", 65)
-    //   .attr("height", (d, i) => d * 10)
-    //   .attr("fill", "green");
-    //const svg = d3.select('body');
 
-    
-  }
+    getRandomColor= () => {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
 
-  render() {
-    return (
-      <div>
-        <h1>{this.state.name}</h1>
-        <div id={"#" + this.props.id} />
-      </div>
-    );
-  }
+    getData = (pivot,variables,data)=> {
+        if (pivot[0].type=='num') {
+            data = data.sort((a,b)=> {
+                return a[pivot[0].name] - b[pivot[0].name];
+            })
+        }
+        var res = variables.map((v,i)=>{
+            return ({
+                "id":v.name,
+                "color":this.getRandomColor(),
+                "data":data.map((d,i)=>{
+                    var x = d[pivot[0].name];
+                    var y = d[v.name];
+                    if (!isNaN(x)) {
+                        x=parseInt(x);
+                    }
+                    if (!isNaN(y)) {
+                        y=parseInt(y);
+                    }
+                    return ({
+                        "x":x,
+                        "y":y
+                    })
+                })
+            })
+        })
+        return res;
+    }
+
+    render() {
+        if (this.state.pivot==null||this.state.variables==null) {
+            return null;
+        }
+        var data = this.getData(this.state.pivot,this.state.variables,this.state.data);
+                 
+        console.log(data)
+        var typeX = this.state.pivot[0].type=='num'? 'linear':'point';
+        console.log(this.state.variables)
+        var typeY = this.state.variables.reduce((type,v) => {
+            if (type=='point' || v.type=='str') {
+                return 'point';
+            } else {
+                return type;
+            } 
+        },'linear')
+        return(
+            <div style={{height:400}}>
+                <ResponsiveBar
+        data={data}
+        keys={[ 'hot dog', 'burger', 'sandwich', 'kebab', 'fries', 'donut' ]}
+        indexBy="country"
+        margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+        padding={0.3}
+        colors={{ scheme: 'nivo' }}
+        defs={[
+            {
+                id: 'dots',
+                type: 'patternDots',
+                background: 'inherit',
+                color: '#38bcb2',
+                size: 4,
+                padding: 1,
+                stagger: true
+            },
+            {
+                id: 'lines',
+                type: 'patternLines',
+                background: 'inherit',
+                color: '#eed312',
+                rotation: -45,
+                lineWidth: 6,
+                spacing: 10
+            }
+        ]}
+        fill={[
+            {
+                match: {
+                    id: 'fries'
+                },
+                id: 'dots'
+            },
+            {
+                match: {
+                    id: 'sandwich'
+                },
+                id: 'lines'
+            }
+        ]}
+        borderColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
+        axisTop={null}
+        axisRight={null}
+        axisBottom={{
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'country',
+            legendPosition: 'middle',
+            legendOffset: 32
+        }}
+        axisLeft={{
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'food',
+            legendPosition: 'middle',
+            legendOffset: -40
+        }}
+        labelSkipWidth={12}
+        labelSkipHeight={12}
+        labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
+        legends={[
+            {
+                dataFrom: 'keys',
+                anchor: 'bottom-right',
+                direction: 'column',
+                justify: false,
+                translateX: 120,
+                translateY: 0,
+                itemsSpacing: 2,
+                itemWidth: 100,
+                itemHeight: 20,
+                itemDirection: 'left-to-right',
+                itemOpacity: 0.85,
+                symbolSize: 20,
+                effects: [
+                    {
+                        on: 'hover',
+                        style: {
+                            itemOpacity: 1
+                        }
+                    }
+                ]
+            }
+        ]}
+        animate={true}
+        motionStiffness={90}
+        motionDamping={15}
+    />
+            </div>
+        );
+        
+    }
 }
 
 export default BarChart;

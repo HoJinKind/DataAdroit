@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {CSVReader} from "react-papaparse";
 import Source from "./Source";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 class Ribbon extends Component {
     constructor(props) {
@@ -57,7 +58,6 @@ class Ribbon extends Component {
     }
 
     render() {
-        // similar to Excel or Word ribbon (top part)
 
         var state = this.state
         console.log(state.sources)
@@ -65,16 +65,24 @@ class Ribbon extends Component {
         return (
             
             <div style={{'position':'fixed','width':'25vw','height':'100vh','padding':'20px','backgroundColor':'rgb(154, 252, 243'}}>
-                <b>{this.state.name}</b>
+                <big><b>{this.state.name}</b></big>
                 <CSVReader
                     onFileLoaded={this.handleReadCSV}
                     inputRef={this.fileInput}
                     style={{ display: "none" }}
                     onError={this.handleOnError}
                 />
-                <button style={{'float':'right'}} onClick={this.handleImportOffer}>+ Source</button>
-                <button style={{'float':'right'}} onClick={this.handleAddBoard}>+ Board</button>
-                <button style={{'float':'right'}} onClick={this.handleExport}>Export</button>
+                <Dropdown style={{'float':'right'}}>
+                    <Dropdown.Toggle style={{'width':'100px'}} variant="outline-primary" id="dropdown-basic" size="sm">
+                        File
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item key={1} onClick={this.handleImportOffer}>+ Source</Dropdown.Item>
+                        <Dropdown.Item key={2} onClick={this.handleExport}>Export</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+                
+                
                 
                 <div style={{'overflowY':'scroll','height':'70px','width':'300px','display':'block','position':'relative','float':'right'}}>
                     {sources}

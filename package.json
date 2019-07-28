@@ -33,6 +33,7 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
     "react-select": "^3.0.4",
+    "react-sortable-hoc": "^1.9.1",
     "react-syntax-highlighter": "^11.0.1",
     "react-tabs": "^3.0.0",
     "react-tabtab": "^2.0.0",
