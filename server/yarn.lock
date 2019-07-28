@@ -1790,7 +1790,7 @@ multiline@^1.0.2:
   dependencies:
     strip-indent "^1.0.0"
 
-nan@^2.12.1:
+nan@>=2.0.0, nan@^2.12.1:
   version "2.14.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
   integrity sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
@@ -2544,6 +2544,13 @@ single-line-log@^1.1.2:
   dependencies:
     string-width "^1.0.1"
 
+sleep@3.0.x:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/sleep/-/sleep-3.0.1.tgz#be4d17c579360e07e04ed8172ba2b10a69054df3"
+  integrity sha1-vk0XxXk2DgfgTtgXK6KxCmkFTfM=
+  dependencies:
+    nan ">=2.0.0"
+
 sliced@0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/sliced/-/sliced-0.0.5.tgz#5edc044ca4eb6f7816d50ba2fc63e25d8fe4707f"
@@ -3068,6 +3075,13 @@ xtend@~4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
+
+xvfb@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/xvfb/-/xvfb-0.2.3.tgz#5588a968754593913f33c0c0e2cbb73741235832"
+  integrity sha1-VYipaHVFk5E/M8DA4su3N0EjWDI=
+  optionalDependencies:
+    sleep "3.0.x"
 
 yallist@^2.1.2:
   version "2.1.2"

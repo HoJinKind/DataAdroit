@@ -4,6 +4,7 @@ const router = express.Router();
 const Nightmare = require("nightmare");
 const JSSoup = require("jssoup").default;
 const Sentiment = require("sentiment");
+var Xvfb = require("xvfb");
 
 // Package Definitions
 const nightmareWebsiteFinder = Nightmare();
@@ -121,6 +122,7 @@ async function stepOneScrapingWorkPromise(retVal) {
 
 async function run(retVal, res) {
   console.log(`a, in run func`);
+
   let result = await stepOneScrapingWorkPromise(retVal);
   console.log("it has returned");
 
@@ -130,8 +132,11 @@ async function run(retVal, res) {
 }
 
 router.post("/", (req, res) => {
+  var xvfb = new Xvfb();
+  xvfb.startSync();
   console.log(req.body.name);
   run(req.body.name, res);
+  xvfb.stopSync();
 });
 module.exports = router;
 
