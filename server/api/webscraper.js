@@ -121,7 +121,6 @@ async function stepOneScrapingWorkPromise(retVal) {
 
 async function run(retVal, res) {
   console.log(`a, in run func`);
-  z;
   let result = await stepOneScrapingWorkPromise(retVal);
   console.log("it has returned");
 
