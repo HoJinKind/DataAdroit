@@ -69,6 +69,7 @@ async function stepOneScrapingWorkPromise(retVal) {
         .click("#search_button_homepage")
         .wait("#r1-3 a.result__a")
         .evaluate(function() {
+          console.log(`b, in run func`);
           return document.querySelector("#r1-1 a.result__a").href;
         })
         .then(async function(title) {
@@ -119,6 +120,8 @@ async function stepOneScrapingWorkPromise(retVal) {
 }
 
 async function run(retVal, res) {
+  console.log(`a, in run func`);
+  z;
   let result = await stepOneScrapingWorkPromise(retVal);
   console.log("it has returned");
 
