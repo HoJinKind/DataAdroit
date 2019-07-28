@@ -4,10 +4,9 @@ const router = express.Router();
 const Nightmare = require("nightmare");
 const JSSoup = require("jssoup").default;
 const Sentiment = require("sentiment");
-var Xvfb = require("xvfb");
 
 // Package Definitions
-const nightmareWebsiteFinder = Nightmare();
+const nightmareWebsiteFinder = Nightmare({ show: false });
 
 //ablr to find top x number of links in search engine. plan is to scrap it
 // TODO pass in the string to scrape.
@@ -48,7 +47,7 @@ function scrapingArticle(articleURL, nightmareObject) {
 }
 
 async function scrapeArticleCallback(articleURL, callback) {
-  await scrapingArticle(articleURL, new Nightmare())
+  await scrapingArticle(articleURL, new Nightmare({ show: false }))
     .then(function(random_data) {
       callback(random_data);
     })
@@ -132,11 +131,8 @@ async function run(retVal, res) {
 }
 
 router.post("/", (req, res) => {
-  var xvfb = new Xvfb();
-  xvfb.startSync();
   console.log(req.body.name);
   run(req.body.name, res);
-  xvfb.stopSync();
 });
 module.exports = router;
 
