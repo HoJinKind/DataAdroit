@@ -29,7 +29,6 @@ class Space extends Component {
         // similar concept to cell in jupyter notebook
         // const { isOver, canDrop, connectDropTarget, droppedItem } = this.props;
         var values = this.state.values;
-        console.log(values)
         var contents = values.map((value,i)=> {
             if (value.id=='chart') {
                 return <ChartHandler key={i}/>

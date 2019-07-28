@@ -9,12 +9,20 @@ class Field extends Component {
             'id':props.id,
             'variables':[]
         }
+        this.onVariableDelete = this.onVariableDelete.bind(this);
+    }
+
+    onVariableDelete = (name) => {
+        var state = this.state;
+        var variables = state.variables.filter((v) => v.name!=name)
+        state.variables = variables;
+        this.setState(state);
     }
 
     render() {
         const { isOver, canDrop, connectDropTarget, droppedItem } = this.props;
         var variables = this.state.variables.map((v)=>{
-            return (<Variable name={v.name} mode={v.mode||'all'} key={v.name}/>)
+            return (<Variable name={v.name} mode={v.mode||'all'} key={v.name} onDelete={this.onVariableDelete}/>)
         })
         return connectDropTarget(
             <div style={{'borderStyle':'dotted','borderColor':'blue','margin':'20px','padding':'20px'}}>
@@ -30,9 +38,11 @@ const spec = {
         const item = monitor.getItem()
         
         var state = component.state;
-        state['variables'].push(item);
-        component.props.onUpdate(state);
-        component.setState(state);
+        if (state['variables'].filter((v)=>v.name==item.name).length ==0) {
+            state['variables'].push(item);
+            component.props.onUpdate(state);
+            component.setState(state);
+        }
     }
 }
 

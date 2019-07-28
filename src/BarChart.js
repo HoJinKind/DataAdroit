@@ -21,30 +21,13 @@ class BarChart extends Component {
     }
 
     getData = (pivot,variables,data)=> {
-        if (pivot[0].type=='num') {
-            data = data.sort((a,b)=> {
-                return a[pivot[0].name] - b[pivot[0].name];
-            })
-        }
-        var res = variables.map((v,i)=>{
-            return ({
-                "id":v.name,
-                "color":this.getRandomColor(),
-                "data":data.map((d,i)=>{
-                    var x = d[pivot[0].name];
-                    var y = d[v.name];
-                    if (!isNaN(x)) {
-                        x=parseInt(x);
-                    }
-                    if (!isNaN(y)) {
-                        y=parseInt(y);
-                    }
-                    return ({
-                        "x":x,
-                        "y":y
-                    })
-                })
-            })
+        var res = data.map((d)=>{
+          var line = {};
+          line[pivot[0].name] = d[pivot[0].name];
+          variables.forEach((v)=>{
+            line[v.name] = parseInt(d[v.name]);
+          })
+          return line;
         })
         return res;
     }
@@ -54,25 +37,20 @@ class BarChart extends Component {
             return null;
         }
         var data = this.getData(this.state.pivot,this.state.variables,this.state.data);
-                 
-        console.log(data)
-        var typeX = this.state.pivot[0].type=='num'? 'linear':'point';
-        console.log(this.state.variables)
-        var typeY = this.state.variables.reduce((type,v) => {
-            if (type=='point' || v.type=='str') {
-                return 'point';
-            } else {
-                return type;
-            } 
-        },'linear')
+        console.log(data);
+        
+        var keys = this.state.variables.map((v) => v.name);
+        console.log(keys);
+        console.log(this.state.pivot[0].name);
         return(
             <div style={{height:400}}>
                 <ResponsiveBar
         data={data}
-        keys={[ 'hot dog', 'burger', 'sandwich', 'kebab', 'fries', 'donut' ]}
-        indexBy="country"
+        keys={keys}
+        indexBy={this.state.pivot[0].name}
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
         padding={0.3}
+        groupMode="grouped"
         colors={{ scheme: 'nivo' }}
         defs={[
             {
@@ -115,7 +93,7 @@ class BarChart extends Component {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'country',
+            legend: this.state.pivot[0].name,
             legendPosition: 'middle',
             legendOffset: 32
         }}
@@ -123,7 +101,7 @@ class BarChart extends Component {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'food',
+            legend: 'value',
             legendPosition: 'middle',
             legendOffset: -40
         }}
