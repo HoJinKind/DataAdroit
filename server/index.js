@@ -13,6 +13,10 @@ app.get("/api/getList", (req, res) => {
   console.log("Sent list of items");
 });
 
+app.use(express.json({ extended: false }));
+
+app.use("/api/webscrape", require("./api/webscraper"));
+
 // Handles any requests that don't match the ones above
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));

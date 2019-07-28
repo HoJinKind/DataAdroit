@@ -11,6 +11,7 @@ import Source from "./Source";
 import Container from "./Container";
 import nightmare from "./scrape";
 import Test from './Test'
+import testbackend from "./testBackendApi";
 
 class App extends Component {
   state = {
@@ -40,6 +41,7 @@ class App extends Component {
             <Route path='/source' component={Container} />
             <Route path='/scrape' component={nightmare} />
             <Route path='/test' component={Test} />
+            <Route path='/testbackendapi' component={testbackend} />
           </Switch>
         </div>
       </BrowserRouter>
