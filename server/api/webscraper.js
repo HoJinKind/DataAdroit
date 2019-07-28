@@ -76,6 +76,7 @@ async function stepOneScrapingWorkPromise(retVal) {
           return document.querySelector("#r1-2 a.result__a").href;
         })
         .then(async function(title) {
+          console.log(title);
           await scrapeArticleCallback(title, function(result) {
             fullList = fullList.concat(result);
           });
@@ -84,6 +85,7 @@ async function stepOneScrapingWorkPromise(retVal) {
               return document.querySelector("#r1-3 a.result__a").href;
             })
             .then(async function(title) {
+              console.log(title);
               await scrapeArticleCallback(title, function(result) {
                 fullList = fullList.concat(result);
                 console.log(fullList.length);
@@ -94,11 +96,10 @@ async function stepOneScrapingWorkPromise(retVal) {
                   return document.querySelector("#r1-4 a.result__a").href;
                 })
                 .then(function(title) {
+                  console.log(title);
                   scrapeArticleCallback(title, function(result) {
                     //appends to array
                     fullList = fullList.concat(result);
-                    console.log(fullList.length);
-
                     resolve(fullList);
                   });
                 });
@@ -117,7 +118,6 @@ async function run(retVal, res) {
 
   var sentiment = new Sentiment();
   var sentimentResult = sentiment.analyze(result.join());
-  console.dir(sentimentResult);
   res.send(sentimentResult);
 }
 
