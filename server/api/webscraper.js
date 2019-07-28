@@ -67,43 +67,51 @@ async function stepOneScrapingWorkPromise(retVal) {
       //result is the return value
       //by setting function to be not async, we hv to wait for it to finish
       var fullList = [];
-
-      console.log("running function run1");
       nightmareWebsiteFinder
         .goto("https://duckduckgo.com")
         .type("#search_form_input_homepage", retVal)
         .click("#search_button_homepage")
         .wait("#r1-3 a.result__a")
         .evaluate(function() {
-          return document.querySelector("#r1-2 a.result__a").href;
+          return document.querySelector("#r1-1 a.result__a").href;
         })
         .then(async function(title) {
           console.log(title);
-          await scrapeArticleCallback(title, function(result) {
-            fullList = fullList.concat(result);
-          });
+
+          if (!title.endsWith(`.pdf`)) {
+            await scrapeArticleCallback(title, function(result) {
+              fullList = fullList.concat(result);
+            });
+          }
           nightmareWebsiteFinder
             .evaluate(function() {
-              return document.querySelector("#r1-3 a.result__a").href;
+              return document.querySelector("#r1-2 a.result__a").href;
             })
             .then(async function(title) {
               console.log(title);
-              await scrapeArticleCallback(title, function(result) {
-                fullList = fullList.concat(result);
-                console.log(fullList.length);
-              });
+              if (!title.endsWith(`.pdf`)) {
+                await scrapeArticleCallback(title, function(result) {
+                  fullList = fullList.concat(result);
+                  console.log(fullList.length);
+                });
+              }
 
               nightmareWebsiteFinder
                 .evaluate(function() {
-                  return document.querySelector("#r1-4 a.result__a").href;
+                  return document.querySelector("#r1-3 a.result__a").href;
                 })
                 .then(function(title) {
                   console.log(title);
-                  scrapeArticleCallback(title, function(result) {
-                    //appends to array
-                    fullList = fullList.concat(result);
+
+                  if (!title.endsWith(`.pdf`)) {
+                    scrapeArticleCallback(title, function(result) {
+                      //appends to array
+                      fullList = fullList.concat(result);
+                      resolve(fullList);
+                    });
+                  } else {
                     resolve(fullList);
-                  });
+                  }
                 });
             });
         });
@@ -115,7 +123,6 @@ async function stepOneScrapingWorkPromise(retVal) {
 }
 
 async function run(retVal, res) {
-  console.log("running function run");
   let result = await stepOneScrapingWorkPromise(retVal);
   console.log("it has returned");
 
