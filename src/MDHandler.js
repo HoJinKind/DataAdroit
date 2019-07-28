@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import ReactMarkdown from "react-markdown/with-html";
-import {Tabs, DragTabList, DragTab, PanelList, Panel, Tab} from 'react-tabtab';
+// import {Tabs, DragTabList, DragTab, PanelList, Panel, Tab} from 'react-tabtab';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import "react-tabs/style/react-tabs.css";
 import AceEditor from 'react-ace';
 import brace from 'brace';
 import 'brace/mode/markdown';
@@ -10,15 +12,11 @@ import * as customStyle from "react-tabtab/lib/themes/bootstrap";
 class MDHandler extends Component {
     constructor(props) {
         super(props);
-        console.log('this is from James')
-        this.state = props.state;
+        this.state = {};
         if (this.state.content == null) {
-            console.log('in')
-            this.state.content = 'aa';
+            this.state.content = '';
             this.state.activeIndex = 0;
         }
-        console.log(props.state)
-        console.log(this.state)
         
         this.handleTabChange = this.handleTabChange.bind(this);
     }
@@ -55,16 +53,15 @@ console.log(this.state)
                     customStyle={customStyle}
                     onTabEdit={this.handleEdit}
                 >
-                <DragTabList>
+                <TabList>
                 
                   <Tab>Markdown</Tab>
                   <Tab>Raw</Tab>
-                </DragTabList>
-                    <PanelList>
-                      <Panel>
+                </TabList>
+                      <TabPanel>
                       <div dangerouslySetInnerHTML={{__html:show}} />
-                      </Panel>
-                      <Panel>
+                      </TabPanel>
+                      <TabPanel>
                       <AceEditor style={{'width':'100%','height':'300px'}}
   placeholder="Write your markdown here!"
   mode="markdown"
@@ -86,8 +83,7 @@ editorProps={{
   showLineNumbers: true,
   tabSize: 2,
   }}/>
-                      </Panel>
-                    </PanelList>
+                      </TabPanel>
 
                 </Tabs>
             

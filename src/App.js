@@ -10,6 +10,7 @@ import Exploratory from "./Exploratory";
 import Source from "./Source";
 import Container from "./Container";
 import nightmare from "./scrape";
+import Test from './Test'
 
 class App extends Component {
   state = {
@@ -38,6 +39,7 @@ class App extends Component {
             <Route path='/exploratory' component={Exploratory} />
             <Route path='/source' component={Container} />
             <Route path='/scrape' component={nightmare} />
+            <Route path='/test' component={Test} />
           </Switch>
         </div>
       </BrowserRouter>

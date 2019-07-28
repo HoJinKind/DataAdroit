@@ -1,17 +1,25 @@
 import React, {Component} from "react";
 import {DropTarget} from 'react-dnd';
+import Variable from "./Variable";
 
 class Field extends Component {
     constructor(props) {
         super(props);
-        this.state = props.state;
+        this.state = {
+            'id':props.id,
+            'variables':[]
+        }
     }
 
     render() {
         const { isOver, canDrop, connectDropTarget, droppedItem } = this.props;
+        var variables = this.state.variables.map((v)=>{
+            return (<Variable name={v.name} mode={v.mode||'all'} key={v.name}/>)
+        })
         return connectDropTarget(
             <div style={{'borderStyle':'dotted','borderColor':'blue','margin':'20px','padding':'20px'}}>
-                {this.state.id +": " +this.state.name}
+                {this.state.id}
+                {variables}
             </div>
         )
     }
@@ -21,11 +29,10 @@ const spec = {
     drop(props, monitor, component) {
         const item = monitor.getItem()
         
-        var state = component.props.state;
-        console.log(state);
-        state.data = item.data;
-        state.name = item.name;
-        component.setState(state)
+        var state = component.state;
+        state['variables'].push(item);
+        component.props.onUpdate(state);
+        component.setState(state);
     }
 }
 

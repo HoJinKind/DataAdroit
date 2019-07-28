@@ -7,10 +7,9 @@ import Data from "./Data";
 class Space extends Component {
     constructor(props) {
         super(props);
-        this.state = props.state;
-        if (this.state.values == null) {
-            this.state['values'] = []
-            this.state['sources'] = []
+        this.state = {
+            'values':[],
+            'sources':[]
         }
     }
 
@@ -28,21 +27,22 @@ class Space extends Component {
     render() {
         // consist of chart and note
         // similar concept to cell in jupyter notebook
-        const { isOver, canDrop, connectDropTarget, droppedItem } = this.props;
+        // const { isOver, canDrop, connectDropTarget, droppedItem } = this.props;
         var values = this.state.values;
+        console.log(values)
         var contents = values.map((value,i)=> {
             if (value.id=='chart') {
-                return <ChartHandler key={i} state={value}/>
+                return <ChartHandler key={i}/>
             }
             if (value.id == 'md') {
-                return <MDHandler key={i} state = {value}/>
+                return <MDHandler key={i}/>
             }
 
         })
 
-        var datas = this.state.sources.map((data,i)=><Data state={data} key={i}/>)
+        var datas = this.state.sources.map((data,i)=><Data name={data.filename} features={data.features} data={data.data} key={i}/>)
         
-        return connectDropTarget(
+        return (
             <div style={{'borderStyle':'dotted','borderColor':'blue','margin':'20px','padding':'20px'}}>
                 Space:
                 {datas}
@@ -58,7 +58,7 @@ const spec = {
     drop(props, monitor, component) {
         const item = monitor.getItem()
         
-        var state = component.props.state
+        var state = component.state
         state['sources'].push(item)
         component.setState(state)
     }
@@ -73,4 +73,5 @@ function collect(connect, monitor) {
     }
 }
 
-export default DropTarget("SOURCE", spec, collect)(Space);
+// export default DropTarget("SOURCE", spec, collect)(Space);
+export default Space;

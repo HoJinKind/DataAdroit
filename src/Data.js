@@ -6,26 +6,31 @@ import 'bootstrap/dist/css/bootstrap.css';
 class Data extends Component {
     constructor(props) {
         super(props);
-        this.state = props.state;
+        this.state = {
+            "name":props.name,
+            "features":props.features,
+            "data":props.data
+        }
     }
 
     render() {
-        console.log(this.state)
         var features =this.state.features.map((feature,i)=>{
-            var fd = this.state.data.map((d)=>d[feature])
-            var state = {
-                "name":feature,
-                "data":fd
-            }
+            var type = 'num'
+            var fd = this.state.data.map((d)=>{
+                if (isNaN(d[feature])) {
+                    type = 'str'
+                }
+                return d[feature];
+            })
             return (
-                <Dropdown.Item key={i}><Feature state={state}/></Dropdown.Item>
+                <Dropdown.Item key={i}><Feature name={feature} data={fd} type={type}/></Dropdown.Item>
             )
         })
         return (
             <div>
             <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    {this.state.filename}
+                    {this.state.name}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                     {features}
