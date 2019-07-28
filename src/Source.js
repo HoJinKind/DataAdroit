@@ -15,7 +15,7 @@ class Source extends Component {
     render() {
         const {name, connectDragSource} = this.props;
         return connectDragSource(
-            <div className="Source">{this.state.filename}</div>
+            <div className="Source">{this.state.name}</div>
         )
         
         
@@ -30,7 +30,6 @@ function collect(connect, monitor) {
 
 const source = {
     beginDrag(props, monitor, component) {
-        console.log(props)
         const item = props.state;
         return item;
     }

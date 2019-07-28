@@ -25,8 +25,7 @@ class Ribbon extends Component {
         
         let state = this.state;
         let source = {};
-
-        source.filename = this.fileInput.current.files[0].name;
+        source.name = this.fileInput.current.files[0].name;
         source.data = data;
         source.features = raw_data[0];
         state.sources.push(source);
@@ -61,11 +60,11 @@ class Ribbon extends Component {
         // similar to Excel or Word ribbon (top part)
 
         var state = this.state
-
-        var sources = this.state.sources.map((source,i)=>{console.log(source);return <Source key={i} state={source}/>})
+        console.log(state.sources)
+        var sources = state.sources.map((source,i)=>{return <Source key={i} state={source}/>})
         return (
             
-            <div style={{'width':'calc(100vw - 40px)','height':'7vh','padding':'20px','borderColor':'red'}}>
+            <div style={{'position':'fixed','width':'25vw','height':'100vh','padding':'20px','backgroundColor':'rgb(154, 252, 243'}}>
                 <b>{this.state.name}</b>
                 <CSVReader
                     onFileLoaded={this.handleReadCSV}

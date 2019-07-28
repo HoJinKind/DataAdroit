@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import Ribbon from "./Ribbon";
-import Chart from "./Chart";
+import ChartHandler from "./ChartHandler";
 import Source from "./Source";
 import Space from "./Space";
 
 class Board extends Component {
     constructor(props) {
         super(props);
-        this.state = props.state;
-        if (!this.state.spaces) {
-            this.state.spaces = [{}];
+        console.log('board render');
+        this.state = {
+            'spaces':[{}]
         }
     }
 
@@ -21,10 +21,10 @@ class Board extends Component {
 
     render() {
         var spaces = this.state.spaces.map((space, i) => (
-            <Space key={i} state={space} />
+            <Space key={i} />
         ));
         return (
-            <div>
+            <div style={{'width':'100vw','paddingLeft':'25vw','margin':'10px'}}>
                 <button
                     style={{
                         float: "right",
@@ -35,7 +35,7 @@ class Board extends Component {
                 >
                     + Space
                 </button>
-                <br />
+                <br/>
                 {spaces}
             </div>
         );
