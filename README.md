@@ -10,9 +10,10 @@ link : http://206.189.155.59:3000
 before, run :
 ### `yarn install`
 
-In the project directory, you can run:
+In the project directory, you can run to start react:
 
 ### `yarn start`
 
-
-### `yarn run server`
+To start server:
+### `cd server`
+### `yarn start`
