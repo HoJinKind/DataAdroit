@@ -6,7 +6,7 @@ const JSSoup = require("jssoup").default;
 const Sentiment = require("sentiment");
 
 // Package Definitions
-const nightmareWebsiteFinder = Nightmare({ show: false });
+const nightmareWebsiteFinder = Nightmare();
 
 //ablr to find top x number of links in search engine. plan is to scrap it
 // TODO pass in the string to scrape.
