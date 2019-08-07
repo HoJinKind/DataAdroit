@@ -42,7 +42,7 @@ function scrapingArticle(articleURL, nightmareObject) {
     } catch (error) {
       reject([]);
     }
-  });
+  }).catch();
 }
 
 async function scrapeArticleCallback(articleURL, callback) {
@@ -114,7 +114,7 @@ async function stepOneScrapingWorkPromise(retVal) {
     } catch (error) {
       reject([]);
     }
-  });
+  }).catch();
 }
 
 async function run(retVal, res) {
