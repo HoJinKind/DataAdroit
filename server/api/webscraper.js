@@ -41,7 +41,6 @@ function scrapingArticle(articleURL, nightmareObject) {
         });
     } catch (error) {
       reject([]);
-      throw error;
     }
   });
 }
