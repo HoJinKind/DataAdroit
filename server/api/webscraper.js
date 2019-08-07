@@ -8,7 +8,7 @@ const Sentiment = require("sentiment");
 // Package Definitions
 const nightmareWebsiteFinder = Nightmare();
 
-//ablr to find top x number of links in search engine. plan is to scrap it
+//able to find top x number of links in search engine. plan is to scrap it
 // TODO pass in the string to scrape.
 var array1 = ["#r1-1 a.result__a", "#r1-2 a.result__a", "#r1-5 a.result__a"];
 //function to scrape a url, able to work to get all p, w/o scrolling
@@ -40,7 +40,7 @@ function scrapingArticle(articleURL, nightmareObject) {
           resolve(returnList);
         });
     } catch (error) {
-      reject("u suck");
+      reject([]);
       throw error;
     }
   });
@@ -107,13 +107,13 @@ async function stepOneScrapingWorkPromise(retVal) {
                       resolve(fullList);
                     });
                   } else {
-                    resolve(fullList);
+                    reject([]);
                   }
                 });
             });
         });
     } catch (error) {
-      reject();
+      reject([]);
       throw error;
     }
   });
