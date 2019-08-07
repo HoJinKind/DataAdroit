@@ -6,7 +6,6 @@ const JSSoup = require("jssoup").default;
 const Sentiment = require("sentiment");
 
 // Package Definitions
-const nightmareWebsiteFinder = Nightmare();
 
 //able to find top x number of links in search engine. plan is to scrap it
 // TODO pass in the string to scrape.
@@ -62,6 +61,8 @@ async function stepOneScrapingWorkPromise(retVal) {
       //result is the return value
       //by setting function to be not async, we hv to wait for it to finish
       var fullList = [];
+
+      const nightmareWebsiteFinder = Nightmare();
       nightmareWebsiteFinder
         .goto("https://duckduckgo.com")
         .type("#search_form_input_homepage", retVal)
