@@ -18,7 +18,7 @@ function scrapingArticle(articleURL, nightmareObject) {
       var ls;
       nightmareObject
         .goto(articleURL)
-        .wait(1000)
+        .wait(2000)
         .evaluate(function() {
           //here is where I want to return the html body
           return document.body.innerHTML;
