@@ -67,7 +67,7 @@ async function stepOneScrapingWorkPromise(retVal) {
         .goto("https://duckduckgo.com")
         .type("#search_form_input_homepage", retVal)
         .click("#search_button_homepage")
-        .wait(1000)
+        .wait("#r1-4 a.result__a")
         .evaluate(function() {
           console.log(`b, in run func`);
           return document.querySelector("#r1-1 a.result__a").href;
@@ -119,7 +119,7 @@ async function stepOneScrapingWorkPromise(retVal) {
 }
 
 async function run(retVal, res) {
-  console.log(`a, in run func`);
+  console.log(`running scraper`);
 
   let result = await stepOneScrapingWorkPromise(retVal);
   console.log("it has returned");
