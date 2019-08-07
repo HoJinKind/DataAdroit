@@ -72,6 +72,7 @@ async function stepOneScrapingWorkPromise(retVal) {
           console.log(`b, in run func`);
           return document.querySelector("#r1-1 a.result__a").href;
         })
+        .evaluate(() => {})
         .then(async function(title) {
           console.log(title);
 
@@ -84,6 +85,7 @@ async function stepOneScrapingWorkPromise(retVal) {
             .evaluate(function() {
               return document.querySelector("#r1-2 a.result__a").href;
             })
+            .evaluate(() => {})
             .then(async function(title) {
               console.log(title);
               if (!title.endsWith(`.pdf`)) {
@@ -97,6 +99,7 @@ async function stepOneScrapingWorkPromise(retVal) {
                 .evaluate(function() {
                   return document.querySelector("#r1-3 a.result__a").href;
                 })
+                .evaluate(() => {})
                 .then(function(title) {
                   console.log(title);
 
