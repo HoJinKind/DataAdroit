@@ -114,7 +114,6 @@ async function stepOneScrapingWorkPromise(retVal) {
         });
     } catch (error) {
       reject([]);
-      throw error;
     }
   });
 }
