@@ -42,7 +42,7 @@ function scrapingArticle(articleURL, nightmareObject) {
     } catch (error) {
       reject([]);
     }
-  }).catch();
+  }).catch(reject([]));
 }
 
 async function scrapeArticleCallback(articleURL, callback) {
@@ -66,7 +66,7 @@ async function stepOneScrapingWorkPromise(retVal) {
         .goto("https://duckduckgo.com")
         .type("#search_form_input_homepage", retVal)
         .click("#search_button_homepage")
-        .wait("#r1-3 a.result__a")
+        .wait("#r1-0 a.result__a")
         .evaluate(function() {
           console.log(`b, in run func`);
           return document.querySelector("#r1-1 a.result__a").href;
