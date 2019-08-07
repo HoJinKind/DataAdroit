@@ -77,7 +77,7 @@ async function stepOneScrapingWorkPromise(retVal) {
           if (!title.endsWith(`.pdf`)) {
             await scrapeArticleCallback(title, function(result) {
               fullList = fullList.concat(result);
-            });
+            }).catch();
           }
           nightmareWebsiteFinder
             .evaluate(function() {
