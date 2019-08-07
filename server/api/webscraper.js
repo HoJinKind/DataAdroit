@@ -42,7 +42,7 @@ function scrapingArticle(articleURL, nightmareObject) {
     } catch (error) {
       reject([]);
     }
-  }).catch({reject([])});
+  }).reject([]);
 }
 
 async function scrapeArticleCallback(articleURL, callback) {
