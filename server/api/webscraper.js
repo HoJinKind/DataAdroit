@@ -18,7 +18,7 @@ function scrapingArticle(articleURL, nightmareObject) {
       var ls;
       nightmareObject
         .goto(articleURL)
-        .wait(2000)
+        .wait(1500)
         .evaluate(function() {
           //here is where I want to return the html body
           return document.body.innerHTML;
@@ -66,7 +66,7 @@ async function stepOneScrapingWorkPromise(retVal) {
         .goto("https://duckduckgo.com")
         .type("#search_form_input_homepage", retVal)
         .click("#search_button_homepage")
-        .wait("#r1-0 a.result__a")
+        .wait(1000)
         .evaluate(function() {
           console.log(`b, in run func`);
           return document.querySelector("#r1-1 a.result__a").href;
