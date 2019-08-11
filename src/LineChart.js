@@ -4,10 +4,11 @@ import { ResponsiveLine } from '@nivo/line';
 class LineChart extends Component {
     constructor(props) {
         super(props);
+        console.log('renew')
         this.state = {
             'pivot':props.pivot,
             'variables':props.variables,
-            'data':JSON.parse(JSON.stringify(props.data))
+            'data':props.data
         }
     }
 
@@ -50,15 +51,13 @@ class LineChart extends Component {
     }
 
     render() {
-        if (this.state.pivot==null||this.state.variables==null) {
+        console.log(this.props.pivot,this.props.variables)
+        if (this.props.pivot.length==0||this.props.variables.length==0) {
             return null;
         }
-        var data = this.getData(this.state.pivot,this.state.variables,this.state.data);
-                 
-        console.log(data)
-        var typeX = this.state.pivot[0].type=='num'? 'linear':'point';
-        console.log(this.state.variables)
-        var typeY = this.state.variables.reduce((type,v) => {
+        var data = this.getData(this.props.pivot,this.props.variables,this.props.data);
+        var typeX = this.props.pivot[0].type=='num'? 'linear':'point';
+        var typeY = this.props.variables.reduce((type,v) => {
             if (type=='point' || v.type=='str') {
                 return 'point';
             } else {
@@ -79,7 +78,7 @@ class LineChart extends Component {
                     tickSize: 5,
                     tickPadding: 5,
                     tickRotation: 0,
-                    legend: this.state.pivot[0].name,
+                    legend: this.props.pivot[0].name,
                     legendOffset: 36,
                     legendPosition: 'middle'
                 }}

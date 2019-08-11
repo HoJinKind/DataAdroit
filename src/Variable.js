@@ -18,21 +18,33 @@ class Variable extends Component {
     }
 
     setModeAll = () => {
-        var state = this.state;
-        state.mode = 'all';
-        this.setState(state);
+        var state = {
+            'name':this.props.name,
+            'mode':'all',
+            'data':this.props.data
+        };
+        this.props.onChange(state);
+        // this.setState(state);
     }
 
     setModeMean = () => {
-        var state = this.state;
-        state.mode = 'mean';
-        this.setState(state);
+        var state = {
+            'name':this.props.name,
+            'mode':'mean',
+            'data':this.props.data
+        };
+        this.props.onChange(state);
+        // this.setState(state);
     }
 
     setModeMedian = () => {
-        var state = this.state;
-        state.mode = 'median';
-        this.setState(state);
+        var state = {
+            'name':this.props.name,
+            'mode':'median',
+            'data':this.props.data
+        };
+        this.props.onChange(state);
+        // this.setState(state);
     }
 
     delete = () => {
@@ -44,7 +56,7 @@ class Variable extends Component {
             <div style={{'display':'inline-block','width':'auto','padding':'5px'}}>
                 <Dropdown style={{'display':'inline','width':'auto'}}>
                     <Dropdown.Toggle variant="outline-primary" id="dropdown-basic" size="sm">
-                    {`${this.state.name} (${this.state.mode})`}
+                    {`${this.props.name} (${this.props.mode})`}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item key={1} onClick={this.setModeAll}>all</Dropdown.Item>

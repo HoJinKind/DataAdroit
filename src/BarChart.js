@@ -1,23 +1,15 @@
-import React, {Component} from "react";
+    import React, {Component} from "react";
 import { ResponsiveBar } from '@nivo/bar';
 
 class BarChart extends Component {
     constructor(props) {
         super(props);
+        console.log(props.pivot)
         this.state = {
             'pivot':props.pivot,
             'variables':props.variables,
-            'data':JSON.parse(JSON.stringify(props.data))
+            'data':props.data
         }
-    }
-
-    getRandomColor= () => {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-          color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
     }
 
     getData = (pivot,variables,data)=> {
@@ -33,21 +25,18 @@ class BarChart extends Component {
     }
 
     render() {
-        if (this.state.pivot==null||this.state.variables==null) {
+        if (this.props.pivot.length==0||this.props.variables.length==0) {
             return null;
         }
-        var data = this.getData(this.state.pivot,this.state.variables,this.state.data);
-        console.log(data);
+        var data = this.getData(this.props.pivot,this.props.variables,this.props.data);
         
-        var keys = this.state.variables.map((v) => v.name);
-        console.log(keys);
-        console.log(this.state.pivot[0].name);
+        var keys = this.props.variables.map((v) => v.name);
         return(
             <div style={{height:400}}>
                 <ResponsiveBar
         data={data}
         keys={keys}
-        indexBy={this.state.pivot[0].name}
+        indexBy={this.props.pivot[0].name}
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
         padding={0.3}
         groupMode="grouped"
@@ -93,7 +82,7 @@ class BarChart extends Component {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: this.state.pivot[0].name,
+            legend: this.props.pivot[0].name,
             legendPosition: 'middle',
             legendOffset: 32
         }}

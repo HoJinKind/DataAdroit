@@ -15,11 +15,10 @@ class ChartHandler extends Component {
         this.state = {
           'source':null,
           'activeIndex':0,
-          'chartKey':0,
           'fields' : {
-            "pivot":{"id":"pivot"},
-            "variables":{"id":"variables"},
-            "z":{"id":"z"}
+            "pivot":[],
+            "variables":[],
+            "z":[]
           },
         }
         this.fieldUpdate = this.fieldUpdate.bind(this);
@@ -29,7 +28,7 @@ class ChartHandler extends Component {
     }
 
     handleTabChange = index => {
-      var state = this.state;
+      var state = Object.assign({},this.state,{'activeIndex':index});
       state.activeIndex = index;
       this.setState(state);
   };
@@ -40,18 +39,15 @@ class ChartHandler extends Component {
     this.setState(state);
   };
 
-  fieldUpdate = (s) => {
-    console.log('c',this);
-    var state = this.state;
-    state.chartKey += 1;
-    state.fields[s.id] = s;
+  fieldUpdate = (id,s) => {
+    console.log('c',this.state);
+    var state = JSON.parse(JSON.stringify(this.state));
+    state.fields[id] = JSON.parse(JSON.stringify(s))
     this.setState(state);
   }
 
     render() {
-      console.log('chartH rerender');
       const { isOver, canDrop, connectDropTarget, droppedItem } = this.props;
-      console.log(this.state)
       var state = this.state;
 
     var chartOptions = [
@@ -84,25 +80,25 @@ class ChartHandler extends Component {
       case "Line":
         if (this.state.source!=null) {
           chart = <LineChart 
-        pivot={this.state.fields.pivot.variables} 
-        variables={this.state.fields.variables.variables}
-        data={this.state.source.data} key={this.state.chartKey}/>
+        pivot={this.state.fields.pivot} 
+        variables={this.state.fields.variables}
+        data={this.state.source.data || null} key={1}/>
         }
 
     fields = ["pivot","variables"].map((field)=>{return(
-      <Field id={field} key={field} onUpdate={this.fieldUpdate}></Field>)
+      <Field id={field} vars={this.state.fields[field]} key={field} onUpdate={this.fieldUpdate}></Field>)
     });
         break;
       
       case "Bar":
         if (this.state.source!=null) {
           chart = <BarChart 
-        pivot={this.state.fields.pivot.variables} 
-        variables={this.state.fields.variables.variables}
-        data={this.state.source.data} key={this.state.chartKey}/>
+        pivot={this.state.fields.pivot} 
+        variables={this.state.fields.variables}
+        data={this.state.source.data || null} key={2}/>
         }
         fields = ["pivot","variables"].map((field)=>{return(
-          <Field id={field} key={field} onUpdate={this.fieldUpdate}></Field>)
+          <Field id={field} vars={this.state.fields[field]} key={field} onUpdate={this.fieldUpdate}></Field>)
         });
 
         break;
@@ -120,7 +116,7 @@ class ChartHandler extends Component {
           <div style={{'margin':10}}>
           {/* <Dropdown placeholder='Chart' search selection options={chartOptions} onChange={this.onChartSelected}/> */}
             <Tabs forceRenderTabPanel>
-                <TabList>
+                <TabList >
                   <Tab disabled>
           <Dropdown placeholder='Chart' search selection options={chartOptions} onChange={this.onChartSelected}/>
 
