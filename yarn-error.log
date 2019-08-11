@@ -77,7 +77,7 @@ npm manifest:
         "last 1 safari version"
       ]
     }
-    "proxy": "http://localhost:5000"
+    "proxy": "http://35.185.190.6:5000"
   }
 
 yarn manifest: 

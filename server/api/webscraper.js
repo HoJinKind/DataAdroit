@@ -2,17 +2,12 @@
 const express = require("express");
 const router = express.Router();
 const Nightmare = require("nightmare");
-const fs = require("fs");
-const csvWriter = require("csv-write-stream");
-var cheerio = require("cheerio");
 const JSSoup = require("jssoup").default;
 const Sentiment = require("sentiment");
 
 // Package Definitions
-const writer = csvWriter();
-const nightmareWebsiteFinder = Nightmare();
 
-//ablr to find top x number of links in search engine. plan is to scrap it
+//able to find top x number of links in search engine. plan is to scrap it
 // TODO pass in the string to scrape.
 var array1 = ["#r1-1 a.result__a", "#r1-2 a.result__a", "#r1-5 a.result__a"];
 //function to scrape a url, able to work to get all p, w/o scrolling
@@ -22,7 +17,7 @@ function scrapingArticle(articleURL, nightmareObject) {
       var ls;
       nightmareObject
         .goto(articleURL)
-        .wait(1000)
+        .wait(1500)
         .evaluate(function() {
           //here is where I want to return the html body
           return document.body.innerHTML;
@@ -44,14 +39,13 @@ function scrapingArticle(articleURL, nightmareObject) {
           resolve(returnList);
         });
     } catch (error) {
-      reject("u suck");
-      throw error;
+      reject([]);
     }
-  });
+  }).catch();
 }
 
 async function scrapeArticleCallback(articleURL, callback) {
-  await scrapingArticle(articleURL, new Nightmare())
+  await scrapingArticle(articleURL, new Nightmare({ show: false }))
     .then(function(random_data) {
       callback(random_data);
     })
@@ -68,54 +62,65 @@ async function stepOneScrapingWorkPromise(retVal) {
       //by setting function to be not async, we hv to wait for it to finish
       var fullList = [];
 
-      console.log("running function run1");
+      const nightmareWebsiteFinder = Nightmare();
       nightmareWebsiteFinder
         .goto("https://duckduckgo.com")
         .type("#search_form_input_homepage", retVal)
         .click("#search_button_homepage")
-        .wait("#r1-3 a.result__a")
+        .wait("#r1-4 a.result__a")
         .evaluate(function() {
-          return document.querySelector("#r1-2 a.result__a").href;
+          console.log(`b, in run func`);
+          return document.querySelector("#r1-1 a.result__a").href;
         })
         .then(async function(title) {
           console.log(title);
-          await scrapeArticleCallback(title, function(result) {
-            fullList = fullList.concat(result);
-          });
+
+          if (!title.endsWith(`.pdf`)) {
+            await scrapeArticleCallback(title, function(result) {
+              fullList = fullList.concat(result);
+            }).catch();
+          }
           nightmareWebsiteFinder
             .evaluate(function() {
-              return document.querySelector("#r1-3 a.result__a").href;
+              return document.querySelector("#r1-2 a.result__a").href;
             })
             .then(async function(title) {
               console.log(title);
-              await scrapeArticleCallback(title, function(result) {
-                fullList = fullList.concat(result);
-                console.log(fullList.length);
-              });
+              if (!title.endsWith(`.pdf`)) {
+                await scrapeArticleCallback(title, function(result) {
+                  fullList = fullList.concat(result);
+                  console.log(fullList.length);
+                });
+              }
 
               nightmareWebsiteFinder
                 .evaluate(function() {
-                  return document.querySelector("#r1-4 a.result__a").href;
+                  return document.querySelector("#r1-3 a.result__a").href;
                 })
                 .then(function(title) {
                   console.log(title);
-                  scrapeArticleCallback(title, function(result) {
-                    //appends to array
-                    fullList = fullList.concat(result);
-                    resolve(fullList);
-                  });
+
+                  if (!title.endsWith(`.pdf`)) {
+                    scrapeArticleCallback(title, function(result) {
+                      //appends to array
+                      fullList = fullList.concat(result);
+                      resolve(fullList);
+                    });
+                  } else {
+                    reject([]);
+                  }
                 });
             });
         });
     } catch (error) {
-      reject();
-      throw error;
+      reject([]);
     }
-  });
+  }).catch();
 }
 
 async function run(retVal, res) {
-  console.log("running function run");
+  console.log(`running scraper`);
+
   let result = await stepOneScrapingWorkPromise(retVal);
   console.log("it has returned");
 
