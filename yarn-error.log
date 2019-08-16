@@ -57,7 +57,7 @@ npm manifest:
     },
     "scripts": {
       "server": "nodemon server",
-      "start": "react-scripts start",
+      "start": "PORT=80 &&  react-scripts start",
       "build": "react-scripts build",
       "test": "react-scripts test",
       "eject": "react-scripts eject"
