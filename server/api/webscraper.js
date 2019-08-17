@@ -5,6 +5,9 @@ const Nightmare = require("nightmare");
 const JSSoup = require("jssoup").default;
 const Sentiment = require("sentiment");
 var nightmareWebsiteFinder = null;
+var nightmarArticle1 = null;
+var nightmarArticle2 = null;
+var nightmarArticle3 = null;
 
 // Package Definitions
 
@@ -12,6 +15,14 @@ var nightmareWebsiteFinder = null;
 // TODO pass in the string to scrape.
 var array1 = ["#r1-1 a.result__a", "#r1-2 a.result__a", "#r1-5 a.result__a"];
 //function to scrape a url, able to work to get all p, w/o scrolling
+
+function terminateNightmare(nm) {
+  nm.proc.disconnect();
+  nm.proc.kill();
+  nm.ended = true;
+  nm = null;
+}
+
 function scrapingArticle(articleURL, nightmareObject) {
   return new Promise(function(resolve, reject) {
     try {
@@ -45,8 +56,8 @@ function scrapingArticle(articleURL, nightmareObject) {
   }).catch();
 }
 
-async function scrapeArticleCallback(articleURL, callback) {
-  await scrapingArticle(articleURL, new Nightmare({ show: false }))
+async function scrapeArticleCallback(articleURL, callback, nm) {
+  await scrapingArticle(articleURL, nm)
     .then(function(random_data) {
       callback(random_data);
     })
@@ -68,6 +79,11 @@ async function stepOneScrapingWorkPromise(retVal) {
         (executionTimeout = 15000),
         (gotoTimeout = 10000)
       );
+
+      nightmarArticle1 = Nightmare();
+      nightmarArticle2 = Nightmare();
+      nightmarArticle3 = Nightmare();
+
       nightmareWebsiteFinder
         .goto("https://duckduckgo.com")
         .type("#search_form_input_homepage", retVal)
@@ -81,9 +97,13 @@ async function stepOneScrapingWorkPromise(retVal) {
           console.log(title);
 
           if (!title.endsWith(`.pdf`)) {
-            await scrapeArticleCallback(title, function(result) {
-              fullList = fullList.concat(result);
-            }).catch();
+            await scrapeArticleCallback(
+              title,
+              function(result) {
+                fullList = fullList.concat(result);
+              },
+              nightmarArticle1
+            ).catch();
           }
           nightmareWebsiteFinder
             .evaluate(function() {
@@ -92,10 +112,14 @@ async function stepOneScrapingWorkPromise(retVal) {
             .then(async function(title) {
               console.log(title);
               if (!title.endsWith(`.pdf`)) {
-                await scrapeArticleCallback(title, function(result) {
-                  fullList = fullList.concat(result);
-                  console.log(fullList.length);
-                });
+                await scrapeArticleCallback(
+                  title,
+                  function(result) {
+                    fullList = fullList.concat(result);
+                    console.log(fullList.length);
+                  },
+                  nightmarArticle2
+                );
               }
 
               nightmareWebsiteFinder
@@ -106,11 +130,15 @@ async function stepOneScrapingWorkPromise(retVal) {
                   console.log(title);
 
                   if (!title.endsWith(`.pdf`)) {
-                    scrapeArticleCallback(title, function(result) {
-                      //appends to array
-                      fullList = fullList.concat(result);
-                      resolve(fullList);
-                    });
+                    scrapeArticleCallback(
+                      title,
+                      function(result) {
+                        //appends to array
+                        fullList = fullList.concat(result);
+                        resolve(fullList);
+                      },
+                      nightmarArticle3
+                    );
                   } else {
                     reject([]);
                   }
@@ -130,10 +158,10 @@ async function run(retVal, res) {
   console.log("it has returned");
   nightmareWebsiteFinder.end();
   // kill the Electron process explicitly to ensure no orphan child processes
-  nightmareWebsiteFinder.proc.disconnect();
-  nightmareWebsiteFinder.proc.kill();
-  nightmareWebsiteFinder.ended = true;
-  nightmareWebsiteFinder = null;
+  terminateNightmare(nightmareWebsiteFinder);
+  terminateNightmare(nightmarArticle1);
+  terminateNightmare(nightmarArticle2);
+  terminateNightmare(nightmarArticle3);
 
   var sentiment = new Sentiment();
   var sentimentResult = sentiment.analyze(result.join());
