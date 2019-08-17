@@ -4,6 +4,7 @@ const router = express.Router();
 const Nightmare = require("nightmare");
 const JSSoup = require("jssoup").default;
 const Sentiment = require("sentiment");
+var nightmareWebsiteFinder = null;
 
 // Package Definitions
 
@@ -62,7 +63,7 @@ async function stepOneScrapingWorkPromise(retVal) {
       //by setting function to be not async, we hv to wait for it to finish
       var fullList = [];
 
-      const nightmareWebsiteFinder = Nightmare(
+      nightmareWebsiteFinder = Nightmare(
         (show = false),
         (executionTimeout = 15000),
         (gotoTimeout = 10000)
@@ -127,6 +128,12 @@ async function run(retVal, res) {
 
   let result = await stepOneScrapingWorkPromise(retVal);
   console.log("it has returned");
+  nightmareWebsiteFinder.end();
+  // kill the Electron process explicitly to ensure no orphan child processes
+  nightmareWebsiteFinder.proc.disconnect();
+  nightmareWebsiteFinder.proc.kill();
+  nightmareWebsiteFinder.ended = true;
+  nightmareWebsiteFinder = null;
 
   var sentiment = new Sentiment();
   var sentimentResult = sentiment.analyze(result.join());
