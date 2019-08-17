@@ -11,6 +11,7 @@ import Source from "./Source";
 import Container from "./Container";
 import Test from "./Test";
 import testbackend from "./testBackendApi";
+import home from "./Containers/HomePage";
 
 class App extends Component {
   state = {
@@ -34,6 +35,7 @@ class App extends Component {
                 />
               )}
             />
+            <Route path='/home' component={home} />
             <Route path='/uploadcsv' component={UploadCSV} />
             <Route path='/' component={Login} exact />
             <Route path='/exploratory' component={Exploratory} />
