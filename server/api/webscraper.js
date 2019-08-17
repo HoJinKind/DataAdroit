@@ -4,6 +4,7 @@ const router = express.Router();
 const Nightmare = require("nightmare");
 const JSSoup = require("jssoup").default;
 const Sentiment = require("sentiment");
+const cors = require("cors");
 var nightmareWebsiteFinder = null;
 var nightmarArticle1 = null;
 var nightmarArticle2 = null;
