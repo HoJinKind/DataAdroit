@@ -62,7 +62,11 @@ async function stepOneScrapingWorkPromise(retVal) {
       //by setting function to be not async, we hv to wait for it to finish
       var fullList = [];
 
-      const nightmareWebsiteFinder = Nightmare();
+      const nightmareWebsiteFinder = Nightmare(
+        (show = false),
+        (executionTimeout = 15000),
+        (gotoTimeout = 10000)
+      );
       nightmareWebsiteFinder
         .goto("https://duckduckgo.com")
         .type("#search_form_input_homepage", retVal)
