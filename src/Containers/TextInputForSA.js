@@ -11,8 +11,8 @@ class TextInputForSA extends React.Component {
   }
   Navigate = keyword => {
     console.log(keyword);
-    this.props.history.push("/uploadcsv", {
-      state: { addExpense: keyword }
+    this.props.history.push("/analyze", {
+      state: { keywordtext: keyword }
     });
   };
 

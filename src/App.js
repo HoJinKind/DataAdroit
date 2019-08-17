@@ -13,6 +13,7 @@ import Test from "./Test";
 import testbackend from "./testBackendApi";
 import home from "./Containers/HomePage";
 import textSA from "./Containers/TextInputForSA";
+import SA from "./Containers/SentimentAnalysis";
 
 class App extends Component {
   state = {
@@ -43,6 +44,7 @@ class App extends Component {
             <Route path='/source' component={Container} />
             <Route path='/test' component={Test} />
             <Route path='/sentiment' component={textSA} />
+            <Route path='/analyze' component={SA} props />
             <Route path='/testbackendapi' component={testbackend} />
           </Switch>
         </div>
