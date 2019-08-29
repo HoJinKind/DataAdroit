@@ -30,6 +30,7 @@ class SentimentAnalysis extends Component {
       .then(json => {
         console.log("parsed json", json); // access json.body here
         this.state.loading = false;
+        this.setState({ loading: false, score: json.score });
       });
 
     // .then(res => res.json())
@@ -40,7 +41,7 @@ class SentimentAnalysis extends Component {
 
   render() {
     if (this.state.loading) return <Loader />;
-    else return <p>{this.state.list}</p>;
+    else return <p>{this.state.score}</p>;
   }
 }
 export default withRouter(SentimentAnalysis);

@@ -23,7 +23,7 @@ app.use("/api/webscrape", require("./api/webscraper"));
 
 // Handles any requests that don't match the ones above
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+  res.sendFile(path.join(req + __dirname + "/client/build/index.html"));
 });
 
 const port = process.env.PORT || 5000;
