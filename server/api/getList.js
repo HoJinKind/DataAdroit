@@ -3,16 +3,9 @@ var router = express.Router();
 var request = require('request');
 
 router.get('/', function(req, res, next) {
-  request({
-    uri: 'http://www.giantbomb.com/api/search',
-    qs: {
-      api_key: '8101bc61497bd0f542a08dc149368e49c4deee9b',
-      query: 'World of Warcraft: Legion'
-    }
-  }).pipe(res);
-  console.log(JSON.stringify(res));
-  console.log(Object.keys(res));
-  console.log(res['domain']);
+  request('http://apidintegra.tkfweb.com:80/apid/request?method=login&ci=apiD&ui=SG21701-f10apid13&pwd=f10apid_13'
+  ).pipe(res);
+  console.log(res);
 });
 
 module.exports = router;
