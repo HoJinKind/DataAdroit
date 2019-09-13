@@ -13,7 +13,7 @@ import Test from "./Test";
 import testbackend from "./testBackendApi";
 import home from "./Containers/HomePage";
 import textSA from "./Containers/TextInputForSA";
-import SA from "./Containers/SentimentAnalysis";
+import Cloud from "./wordcloud";
 
 class App extends Component {
   state = {
@@ -29,7 +29,7 @@ class App extends Component {
           <Switch>
             {/* home page */}
             <Route
-              path='/charts'
+              path="/charts"
               render={props => (
                 <BarChart
                   {...props}
@@ -37,15 +37,16 @@ class App extends Component {
                 />
               )}
             />
-            <Route path='/home' component={home} />
-            <Route path='/uploadcsv' component={UploadCSV} />
-            <Route path='/' component={Login} exact />
-            <Route path='/exploratory' component={Exploratory} />
-            <Route path='/source' component={Container} />
-            <Route path='/test' component={Test} />
-            <Route path='/sentiment' component={textSA} />
-            <Route path='/analyze' component={SA} props />
-            <Route path='/testbackendapi' component={testbackend} />
+            <Route path="/home" component={home} />
+            <Route path="/uploadcsv" component={UploadCSV} />
+            <Route path="/" component={Login} exact />
+            <Route path="/exploratory" component={Exploratory} />
+            <Route path="/source" component={Container} />
+            <Route path="/test" component={Test} />
+            <Route path="/sentiment" component={textSA} />
+            <Route path="/analyze" component={SA} props />
+            <Route path="/testbackendapi" component={testbackend} />
+            <Route path="/wordcloud" component={Cloud} />
           </Switch>
         </div>
       </BrowserRouter>
