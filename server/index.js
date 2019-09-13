@@ -7,6 +7,17 @@ const app = express();
 app.use(cors());
 app.options("*", cors());
 
+// request.post('http://www.giantbomb.com/api/search',
+//  { form: {
+//     api_key: '8101bc61497bd0f542a08dc149368e49c4deee9b',
+//     query: 'World of Warcraft: Legion'
+//   }
+// },(err,res,body)=>{
+//   console.log(res)
+// })
+
+
+
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, "client/build")));
 
