@@ -1,17 +1,18 @@
-const express = require("express");
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
+var request = require('request');
 
-//@ route GET api/users
-//@desc Test route
-//access  Public
-//by public and private, to access some pages
-//need a token, but this is public
-router.get("/", (req, res) => {
-  var list = ["item1", "item2", "item3", "item4"];
-  res.json(list);
-  console.log("Sent list of items test endpoint routings");
+router.get('/', function(req, res, next) {
+  request({
+    uri: 'http://www.giantbomb.com/api/search',
+    qs: {
+      api_key: '8101bc61497bd0f542a08dc149368e49c4deee9b',
+      query: 'World of Warcraft: Legion'
+    }
+  }).pipe(res);
+  console.log(JSON.stringify(res));
+  console.log(Object.keys(res));
+  console.log(res['domain']);
 });
 
 module.exports = router;
-
-
