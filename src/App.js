@@ -29,7 +29,7 @@ class App extends Component {
           <Switch>
             {/* home page */}
             <Route
-              path='/charts'
+              path="/charts"
               render={props => (
                 <BarChart
                   {...props}
@@ -37,15 +37,15 @@ class App extends Component {
                 />
               )}
             />
-            <Route path='/home' component={home} />
-            <Route path='/uploadcsv' component={UploadCSV} />
-            <Route path='/' component={Login} exact />
-            <Route path='/exploratory' component={Exploratory} />
-            <Route path='/source' component={Container} />
-            <Route path='/test' component={Test} />
-            <Route path='/sentiment' component={textSA} />
-            <Route path='/analyze' component={SA} props />
-            <Route path='/testbackendapi' component={testbackend} />
+            <Route path="/home" component={home} />
+            <Route path="/uploadcsv" component={UploadCSV} />
+            <Route path="/" component={Login} exact />
+            <Route path="/exploratory" component={Exploratory} />
+            <Route path="/source" component={Container} />
+            <Route path="/test" component={Test} />
+            <Route path="/sentiment" component={textSA} />
+            <Route path="/analyze" component={SA} props />
+            <Route path="/testbackendapi" component={testbackend} />
           </Switch>
         </div>
       </BrowserRouter>

@@ -39,6 +39,7 @@
     "react-syntax-highlighter": "^11.0.1",
     "react-tabs": "^3.0.0",
     "react-tabtab": "^2.0.0",
+    "react-wordcloud": "^1.1.0",
     "remarkable": "^1.7.1",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.87.2",
