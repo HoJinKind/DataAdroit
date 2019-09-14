@@ -72,7 +72,7 @@ class TextInputForSA extends React.Component {
             this.Navigate(document.getElementById("keywordtext").value);
           }}
         >
-          analyze
+          Analyze
         </button></center>
       </div>
     );
