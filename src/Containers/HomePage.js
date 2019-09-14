@@ -102,8 +102,14 @@ const useStyles = makeStyles(theme => ({
 export default function HomePage() {
   const classes = useStyles();
 
-  return (
+  return (        
+    <div> 
+    <center><Typography  component='h1' variant='h5' fade>
+  Welcome John Doe
+</Typography></center>
+<br/>
     <div className={classes.root}>
+
       {images.map(image => (
         <ButtonBase
           href={`/${image.id}`}
@@ -135,6 +141,7 @@ export default function HomePage() {
           </span>
         </ButtonBase>
       ))}
-    </div>
+    </div></div>
   );
+    ("#div2").fadeIn("slow");
 }

@@ -7,6 +7,26 @@ var Transform = require('stream').Transform;
 
 router.get('/', function(req, res, next) {
   login(res)
+  var unirest = require("unirest");
+
+var req1 = unirest("GET", "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary");
+
+req1.query({
+	"region": "US",
+	"symbol": "AMRN"
+});
+
+req1.headers({
+	"x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
+	"x-rapidapi-key": "6e44b3d85fmsh6c8d807325d1e4bp156873jsn6f0d7bbd9726"
+});
+
+
+req1.end(function (res) {
+	if (res.error) throw new Error(res.error);
+
+	console.log(res.body);
+});
 });
 
 module.exports = router;

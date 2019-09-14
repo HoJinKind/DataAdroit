@@ -21,7 +21,6 @@ var request = require('request');
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, "client/build")));
-
 // An api endpoint that returns a short list of items
 app.get("/api/getList", (req, res) => {
   var list = ["item1", "item2", "item3", "item4"];
@@ -32,6 +31,8 @@ app.get("/api/getList", (req, res) => {
 app.use(express.json({ extended: false }));
 
 app.use("/api/webscrape", require("./api/webscraper"));
+
+app.use("/api/financialdatadashboard", require("./api/financialDataDashboard"));
 
 app.use("/api/getlist1", require("./api/getList"));
 
