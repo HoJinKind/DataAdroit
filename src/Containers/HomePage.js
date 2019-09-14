@@ -103,13 +103,10 @@ export default function HomePage() {
   const classes = useStyles();
 
   return (        
-    <div>      <CSSTransitionGroup transitionName="fadeInput"
-    transitionEnterTimeout={500}
-    transitionLeaveTimeout={300}>
+    <div> 
     <center><Typography  component='h1' variant='h5' fade>
   Welcome John Doe
 </Typography></center>
-      </CSSTransitionGroup>
 <br/>
     <div className={classes.root}>
 

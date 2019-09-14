@@ -19,6 +19,7 @@
     "nightmare": "^3.0.2",
     "nodemon": "^1.19.2",
     "sentiment": "^5.0.1",
+    "unirest": "^0.6.0",
     "xml2json": "^0.11.2",
     "xvfb": "^0.2.3"
   }
