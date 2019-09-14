@@ -15,6 +15,7 @@ import home from "./Containers/HomePage";
 import textSA from "./Containers/TextInputForSA";
 import SA from "./Containers/SentimentAnalysis";
 import FD from "./Containers/TextInputForStockCode";
+import FDD from "./Containers/financialDataDisplay";
 import TextInputForStockCode from "./Containers/TextInputForStockCode";
 
 class App extends Component {
@@ -47,6 +48,7 @@ class App extends Component {
             <Route path="/test" component={Test} />
             <Route path="/sentiment" component={textSA} />
             <Route path="/financialData" component={FD} />
+            <Route path="/financialDataDisplay" component={FDD} props />
             <Route path="/stockCodeInput" component={TextInputForStockCode} />
             <Route path="/analyze" component={SA} props />
             <Route path="/testbackendapi" component={testbackend} />

@@ -45,7 +45,7 @@ class TextInputForStockCode extends React.Component {
   }
   Navigate = keyword => {
     console.log(keyword);
-    this.props.history.push("/analyze", {
+    this.props.history.push("/financialDataDisplay", {
       state: { keywordtext: keyword }
     });
   };
