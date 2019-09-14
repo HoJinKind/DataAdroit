@@ -11,7 +11,7 @@ router.post('/', function(req, res) {
 var req1 = unirest("GET", "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary");
 req1.query({
 	"region": "US",
-	"symbol": "GOOsssG"
+	"symbol": "GOOG"
 });
 
 
