@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Loader from "./Loader";
 import ReactDOM from "react-dom";
+import { Router, route, Link } from "react-router-dom";
 import { BrowserRouter, Redirect, withRouter } from "react-router-dom";
 import ReactWordcloud from "react-wordcloud";
 import { red } from "@material-ui/core/colors";
@@ -162,7 +163,8 @@ class SentimentAnalysis extends Component {
   };
 
   render() {
-    if (this.state.loading) return <Loader />;
+    if (this.state.loading)
+      return <img src={require("../images/SADisplayButtonImage.jpg")} />;
     // else return <p>{this.state.score}</p>;
     else return this.cloud();
   }
