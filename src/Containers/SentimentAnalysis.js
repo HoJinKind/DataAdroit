@@ -14,7 +14,7 @@ const negOptions = {
   fontSizes: [20, 70],
   fontStyle: "normal",
   fontWeight: "normal",
-  padding: 1,
+  padding: 1.5,
   rotations: 3,
   rotationAngles: [90, 0],
   scale: "sqrt",
@@ -30,7 +30,7 @@ const posOptions = {
   fontSizes: [20, 100],
   fontStyle: "normal",
   fontWeight: "normal",
-  padding: 1,
+  padding: 1.5,
   rotations: 3,
   rotationAngles: [90, 0],
   scale: "sqrt",
@@ -138,24 +138,13 @@ class SentimentAnalysis extends Component {
   cloud = () => {
     {
       return (
-        <div style={{'display':'inline-block'}}>
-          <div
-            style={{
-              width: '100vw',
-              display:'block'
-            }}
-          >
-            
-            <ReactWordcloud
-              options={posOptions}
-              words={this.state.pneg}
-            />
-            <ReactWordcloud
-              options={negOptions}
-              words={this.state.rneg}
-            />
+        <div>
+          <style>width: 500</style>
+          <div>
+            <ReactWordcloud options={posOptions} words={this.state.pneg} />
+            <ReactWordcloud options={negOptions} words={this.state.rneg} />
           </div>
-          <div style={{'display':'block'}}>
+          <div className="goBackLink" style={{ textAlign: "bottom" }}>
             <Link to="/sentiment">Go Back</Link>
           </div>
         </div>
@@ -164,8 +153,7 @@ class SentimentAnalysis extends Component {
   };
 
   render() {
-    if (this.state.loading)
-      return <img src={require("../images/SADisplayButtonImage.jpg")} />;
+    if (this.state.loading) return <Loader />;
     // else return <p>{this.state.score}</p>;
     else return this.cloud();
   }
