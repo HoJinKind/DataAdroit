@@ -3,6 +3,13 @@ var router = express.Router();
 var request = require('request');
 
 var parser = require('xml2json');
+const Sentiment = require("sentiment");
+var sentiment = new Sentiment()
+
+var getSentiment = (list) => {
+    var sentimentResult = sentiment.analyze(list.join());
+    return {'positive':sentimentResult['positive'],'negative':sentimentResult['negative']};
+}
 
 router.get('/:topic', function(req,res,next) {
     console.log(new Date())
@@ -24,7 +31,7 @@ router.get('/:topic', function(req,res,next) {
                     // while(news.length != result.length) {}
                     // resolve()
                 }).then(()=>{
-                    res.json(result)
+                    res.json(getSentiment(result))
                 });
             } else {
                 console.log(news)

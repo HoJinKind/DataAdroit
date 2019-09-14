@@ -138,25 +138,26 @@ class SentimentAnalysis extends Component {
   cloud = () => {
     {
       return (
-        <div>
+        <div style={{'display':'inline-block'}}>
           <div
             style={{
-              height: 600,
-              width: 600
+              width: '100vw',
+              display:'block'
             }}
           >
+            
             <ReactWordcloud
               options={posOptions}
               words={this.state.pneg}
-              style="float: right"
             />
             <ReactWordcloud
               options={negOptions}
               words={this.state.rneg}
-              style="float: left"
             />
           </div>
-          <Link to="/sentiment">Go Back</Link>
+          <div style={{'display':'block'}}>
+            <Link to="/sentiment">Go Back</Link>
+          </div>
         </div>
       );
     }
