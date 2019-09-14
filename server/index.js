@@ -35,6 +35,8 @@ app.use("/api/webscrape", require("./api/webscraper"));
 
 app.use("/api/getlist1", require("./api/getList"));
 
+app.use("/api/getNews",require("./api/getNews"));
+
 // Handles any requests that don't match the ones above
 app.get("*", (req, res) => {
   res.sendFile(path.join(req + __dirname + "/client/build/index.html"));
