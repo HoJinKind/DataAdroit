@@ -11,7 +11,7 @@ router.post('/', function(req, res) {
 var req1 = unirest("GET", "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary");
 req1.query({
 	"region": "US",
-	"symbol": "GOOG"
+	"symbol": "GOOsssG"
 });
 
 
@@ -24,17 +24,17 @@ req1.headers({
 req1.end(function (response) {
 	if (response.error) throw new Error(response.error);
     var dict = {};
-    dict.ebidta = response.body.financialData.ebitda.fmt 
-    dict.revenueGrowth = response.body.financialData.revenueGrowth.fmt 
-    dict.marketCap = response.body.summaryDetail.marketCap.fmt
-    dict.totalRevenue = response.body.financialData.totalRevenue.fmt 
-    dict.totalDebt = response.body.financialData.totalDebt.fmt 
-    dict.profitMargins = response.body.defaultKeyStatistics.profitMargins.fmt
-    dict.sharesOutstanding = response.body.defaultKeyStatistics.sharesOutstanding.fmt
-    dict.enterpriseValue = response.body.defaultKeyStatistics.enterpriseValue.fmt
-    dict.forwardPE = response.body.defaultKeyStatistics.forwardPE.fmt
-    dict.industry = response.body.summaryProfile.industry.industry
-    dict.currency = response.body.earnings.financialCurrency
+    dict.ebidta = response.body.financialData.ebitda.fmt; 
+    dict.revenueGrowth = response.body.financialData.revenueGrowth.fmt; 
+    dict.marketCap = response.body.summaryDetail.marketCap.fmt;
+    dict.totalRevenue = response.body.financialData.totalRevenue.fmt; 
+    dict.totalDebt = response.body.financialData.totalDebt.fmt; 
+    dict.profitMargins = response.body.defaultKeyStatistics.profitMargins.fmt;
+    dict.sharesOutstanding = response.body.defaultKeyStatistics.sharesOutstanding.fmt;
+    dict.enterpriseValue = response.body.defaultKeyStatistics.enterpriseValue.fmt;
+    dict.forwardPE = response.body.defaultKeyStatistics.forwardPE.fmt;
+    dict.industry = response.body.summaryProfile.industry.industry;
+    dict.currency = response.body.earnings.financialCurrency;
     //dict.financialCurrency = response.body.defaultKeyStatistics.financialCurrency
     res.json(response.body);
 });

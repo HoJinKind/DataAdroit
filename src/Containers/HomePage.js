@@ -143,5 +143,4 @@ export default function HomePage() {
       ))}
     </div></div>
   );
-    ("#div2").fadeIn("slow");
 }
