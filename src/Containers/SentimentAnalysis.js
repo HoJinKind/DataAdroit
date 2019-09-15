@@ -167,9 +167,9 @@ class SentimentAnalysis extends Component {
    
     return (
       <div style={{'margin':'5px'}}>
-         {this.state.loading?<Loader/>:null}
         <h1>Sentiment Analysis result for {this.props.history.location.state.state.keywordtext}</h1>
         <h2>Top websites:</h2>
+        {this.state.loading?<Loader/>:null}
         <Cloud options={posOptions} posList={this.state.pneg} negList={this.state.rneg}/>
         <h2>News:</h2>
         <Cloud options={posOptions} posList={this.state.fp} negList={this.state.fn}/>

@@ -4,6 +4,7 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
 import TSA from "../images/SADisplayButtonImage.jpg";
 import DE from "../images/DataExploreButtonImage.png";
+import FD from "../images/financeDataImage.png";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import { Link } from "react-router-dom";
@@ -13,14 +14,21 @@ const images = [
     id: "exploratory",
     url: DE,
     title: "My Data Exploratory",
-    width: "40%"
+    width: "30%"
   },
   {
     id: "sentiment",
     url: TSA,
     title: "Text Sentiment Analysis",
-    width: "40%"
+    width: "30%"
+  },
+  {
+    id: "financialData",
+    url: FD,
+    title: "Customised Financial Data",
+    width: "30%"
   }
+
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -143,5 +151,4 @@ export default function HomePage() {
       ))}
     </div></div>
   );
-    ("#div2").fadeIn("slow");
 }

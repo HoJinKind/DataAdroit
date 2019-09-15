@@ -37,7 +37,7 @@ const styles = theme => ({
 });
 
 
-class TextInputForSA extends React.Component {
+class TextInputForStockCode extends React.Component {
 
   constructor(props) {
     super(props);
@@ -45,7 +45,7 @@ class TextInputForSA extends React.Component {
   }
   Navigate = keyword => {
     console.log(keyword);
-    this.props.history.push("/analyze", {
+    this.props.history.push("/financialDataDisplay", {
       state: { keywordtext: keyword }
     });
   };
@@ -56,7 +56,7 @@ class TextInputForSA extends React.Component {
     return (
       <div>
             <center><Typography  component='h1' variant='h5' fade>
-      Text Sentiment Analysis
+      Customisable Financial Metric Dashobard
 </Typography>
 
         <TextField  className={classes.another}
@@ -64,7 +64,7 @@ class TextInputForSA extends React.Component {
           name='keywordtext'
           margin="normal"
           variant="outlined"
-          placeholder = "Enter Company Name"  
+          placeholder = "Enter Company Code"  
         />
         <button  className={classes.root}
           type='submit'
@@ -72,11 +72,11 @@ class TextInputForSA extends React.Component {
             this.Navigate(document.getElementById("keywordtext").value);
           }}
         >
-          Analyze
+          Search
         </button></center>
       </div>
     );
   }
 }
 
-export default withStyles(styles)(TextInputForSA);
+export default withStyles(styles)(TextInputForStockCode);
