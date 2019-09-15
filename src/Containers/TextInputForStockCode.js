@@ -20,6 +20,7 @@ import TextField from '@material-ui/core/TextField';
 
 import { makeStyles } from '@material-ui/core/styles';
 
+const validCode = ['goog', 'GOOG', 'amzn', 'AMZN'];
 const styles = theme => ({
   another:{
     margin:15
@@ -69,7 +70,13 @@ class TextInputForStockCode extends React.Component {
         <button  className={classes.root}
           type='submit'
           onClick={() => {
-            this.Navigate(document.getElementById("keywordtext").value);
+            let keyword= document.getElementById("keywordtext").value
+            if (validCode.indexOf(keyword) >= 0){
+              this.Navigate(keyword);
+            }
+            else{
+              errorMsg(keyword)
+            }
           }}
         >
           Search
@@ -79,4 +86,10 @@ class TextInputForStockCode extends React.Component {
   }
 }
 
+function errorMsg(keyword){
+  document.getElementById("keywordtext").error = true
+  document.getElementById("keywordtext").label = "enter a valid code"
+  console.log(keyword)
+  console.log((keyword in validCode))
+}
 export default withStyles(styles)(TextInputForStockCode);

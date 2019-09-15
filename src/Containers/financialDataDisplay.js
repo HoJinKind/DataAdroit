@@ -15,7 +15,8 @@ class FinancialDataDisplay extends Component {
       list: "",
       loading: true,
       rneg: [],
-      pneg: []
+      pneg: [],
+      data: "",
     };
     this.postReqForSA();
     this.cloud = this.cloud.bind(this);
@@ -23,7 +24,7 @@ class FinancialDataDisplay extends Component {
 
   postReqForSA = () => {
     console.log("running");
-    fetch("/api/financialDatadashboard", {
+    fetch("/api/financialdatadashboard", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -37,7 +38,7 @@ class FinancialDataDisplay extends Component {
       .then(json => {
         console.log("parsed json", json); // access json.body here
         this.state.loading = false;
-        this.setState({ loading: false, score: json.score });
+        this.setState({ loading: false, data : JSON.stringify(json) });
       });
     // .then(res => res.json())
     // .then(console.log(res.json))
@@ -51,6 +52,7 @@ class FinancialDataDisplay extends Component {
         <div>
           <style>width: 500</style>
           <div>
+            <div>{this.state.data}</div>
           </div>
           <div className="goBackLink" style={{ textAlign: "bottom" }}>
             <Link to="/financialData">Go Back</Link>

@@ -11,7 +11,7 @@ router.post('/', function(req, res) {
 var req1 = unirest("GET", "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary");
 req1.query({
 	"region": "US",
-	"symbol": "GOOG"
+	"symbol": req.body.name
 });
 
 
@@ -36,7 +36,7 @@ req1.end(function (response) {
     dict.industry = response.body.summaryProfile.industry.industry;
     dict.currency = response.body.earnings.financialCurrency;
     //dict.financialCurrency = response.body.defaultKeyStatistics.financialCurrency
-    res.json(response.body);
+    res.json(dict);
 });
 });
 
