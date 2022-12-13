@@ -12,7 +12,7 @@
     "d3": "^5.9.2",
     "d3blackbox": "^1.2.0",
     "dataframe-js": "^1.4.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "highlight.js": "^9.15.8",
     "lodash.get": "^4.4.2",
     "nodemon": "^1.19.1",
