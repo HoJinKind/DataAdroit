@@ -17,7 +17,7 @@
     "lodash.get": "^4.4.2",
     "nodemon": "^1.19.1",
     "pandas-js": "^0.2.4",
-    "papaparse": "^5.0.0",
+    "papaparse": "^5.2.0",
     "radium": "^0.25.2",
     "react": "^16.8.6",
     "react-ace": "^7.0.2",
